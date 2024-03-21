@@ -1,10 +1,17 @@
-import React from 'react'
+import styles from './Rzeszowiak.module.css'
+import Menu from './components/Menu/Menu'
 
 type Props = {}
 
 const Rzeszowiak = (props: Props) => {
   return (
-    <div>Rzeszowiak</div>
+    <div className={styles.wrapper}>
+        <Menu />
+
+        <div>
+            Page
+        </div>
+    </div>
   )
 }
 
