@@ -1,18 +1,19 @@
 import { Button } from '@/components/ui/button'
 import styles from './Rzeszowiak.module.css'
 import Menu from './components/Menu/Menu'
-import { useEffect } from 'react'
 import { AHttpClient } from '@/http/AxiosAbstract'
+import { useQuery } from '@tanstack/react-query'
 
 type Props = {}
 
 const Rzeszowiak = ({}: Props) => {
 
-  useEffect(
-    () => {
-      AHttpClient.getPost().then(console.log)
-    }
-  )
+  const {data} = useQuery({
+    queryFn: AHttpClient.getPost,
+    queryKey: ['rzeszowiak'],
+  })
+
+  console.log(data)
 
   return (
     <div className={styles.wrapper}>

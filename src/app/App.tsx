@@ -4,23 +4,28 @@ import LandingPage from '@/pages/LandingPage/LandingPage'
 import styles from './App.module.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Rzeszowiak from '@/pages/Rzeszowiak/Rzeszowiak'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 function App() {
+  const queryClient = new QueryClient()
+
   return (
     <div className={styles.app}>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            index
-            element={<LandingPage />}
-          />
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              index
+              element={<LandingPage />}
+              />
 
-          <Route
-            path='rzeszowiak'
-            element={<Rzeszowiak />}
-          />
-        </Routes>
-      </BrowserRouter>
+            <Route
+              path='rzeszowiak'
+              element={<Rzeszowiak />}
+              />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
     </div>
   )
 }
