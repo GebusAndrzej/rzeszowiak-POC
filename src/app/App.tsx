@@ -5,6 +5,7 @@ import styles from './App.module.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Rzeszowiak from '@/pages/Rzeszowiak/Rzeszowiak'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { APP_ROUTE } from './appConsts'
 
 function App() {
   const queryClient = new QueryClient()
@@ -20,7 +21,7 @@ function App() {
               />
 
             <Route
-              path='rzeszowiak'
+              path={`${APP_ROUTE.RZESZOWIAK}/*`}
               element={<Rzeszowiak />}
               />
           </Routes>
