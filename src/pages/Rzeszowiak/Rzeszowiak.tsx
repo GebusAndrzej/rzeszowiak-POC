@@ -8,7 +8,7 @@ type Props = {}
 
 const Rzeszowiak = ({}: Props) => {
 
-  const {data} = useQuery({
+  const {data,isLoading, failureCount} = useQuery({
     queryFn: AHttpClient.getPost,
     queryKey: ['rzeszowiak'],
   })
@@ -20,9 +20,13 @@ const Rzeszowiak = ({}: Props) => {
         <Menu />
 
         <div>
+            {isLoading && (
+              "Loading..."
+            )}
             Page
             <Button>
               hello
+              {failureCount}
             </Button>
         </div>
     </div>

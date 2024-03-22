@@ -3,6 +3,6 @@ import axiosInstance from "./AxiosInstance";
 export abstract class AHttpClient {
 
     public static getPost = () => axiosInstance
-        .get<any>('https://jsonplaceholder.typicode.com/todos/1')
+        .get<any>('https://marketplace-backend-eeh6.onrender.com/proxy?q=https://www.rzeszowiak.pl/')
         .then(response => response.data)
 }
