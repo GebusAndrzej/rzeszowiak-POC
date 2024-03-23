@@ -1,43 +1,28 @@
-import { Button } from '@/components/ui/button'
 import styles from './Rzeszowiak.module.css'
 import { AHttpClient } from '@/http/AxiosAbstract'
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useRef, useState } from 'react'
-import DOMPurify from 'dompurify'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Menu from './components/Menu/Menu'
 import { Route, Routes } from 'react-router-dom'
+import Page from './components/Page/Page'
+import { domSanitize, parseHTMLResponse } from '@/lib/helpers/HTMLhelpers'
 
 type Props = {}
-
-const domSanitize = (content: string, config: {
-  ADD_URI_SAFE_ATTR?: string[];
-  FORBID_TAGS?: string[];
-}): string =>
-  DOMPurify.sanitize(content, config);
 
 const Rzeszowiak = ({}: Props) => {
   const bodyRef = useRef<HTMLElement>()
   // const [bodyElement, setBodyElement] = useState<string>('')
   const [menuElement, setMenuElement] = useState<string>()
 
-  const {data,isLoading, failureCount} = useQuery({
-    queryFn: AHttpClient.getPost,
+  const {data, isLoading, failureCount} = useQuery({
+    queryFn: () => AHttpClient.getPage('https://www.rzeszowiak.pl/'),
     queryKey: ['rzeszowiak'],
   })
 
+  const html = useMemo(() => parseHTMLResponse(data), [data])
+
   useEffect(
     () => {
-
-    const sanitizedResponse = domSanitize(
-        data, 
-        {
-          ADD_URI_SAFE_ATTR: [ 'src', 'href' ],
-          FORBID_TAGS: ['style', 'width', 'height']
-        }
-      )
-
-      const html = new DOMParser().parseFromString(sanitizedResponse, "text/html")
-
       const body = html.body;
       const menu = html.querySelector<HTMLDivElement>(".menu-left-middle");
 
@@ -45,7 +30,7 @@ const Rzeszowiak = ({}: Props) => {
       setMenuElement(menu?.outerHTML)
       bodyRef.current = body;
     },
-    [data]
+    [html]
   )
 
   return (
@@ -66,7 +51,7 @@ const Rzeszowiak = ({}: Props) => {
 
               <Route
                 path=':slug'
-                element={"some category/item"}
+                element={<Page />}
               />
             </Routes>
         </div>

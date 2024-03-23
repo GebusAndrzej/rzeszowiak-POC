@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { parseMenuHTML } from "./utils/helpers";
-import { NavLink } from "react-router-dom";
+import MenuGroup from "./components/MenuGroup/MenuGroup";
 
 type Props = {
     originalElement?: string;
@@ -10,40 +10,28 @@ const Menu = ({
     originalElement = ''
 }: Props) => {
 
-    const parse = useMemo(
+    const parsedMenu = useMemo(
         () => {
             if (!originalElement.length) return;
-
             const parsedMenu = parseMenuHTML(originalElement);
           
-            console.log(parsedMenu)
-
             return parsedMenu
         },
         [originalElement]
     )
 
   return (
-    <div>
-        Menu
-        {parse?.map(category => (
-          <div key={category.categoryName}>
-              {category.categoryName}
-              
-              {category.items.map(menuItem => (
-                <div key={menuItem.text}>
-                  <NavLink to={menuItem.url}>
-                    {menuItem.text}
-                  </NavLink>
-                </div>
-              ))}
-          </div>
-        ))}
-        ---
-        {/* {originalElement} */}
-        <div
-          dangerouslySetInnerHTML={{__html: originalElement}}
+    <div className="flex flex-col">
+      <div>
+        rzeszowiak
+      </div>
+
+      {parsedMenu?.map(category => (
+        <MenuGroup 
+          category={category} 
+          key={category.categoryName}
         />
+      ))}
     </div>
   )
 }

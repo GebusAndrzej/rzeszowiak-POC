@@ -14,6 +14,7 @@
     "css-modules-check:up-to-date-types": "tcm --listDifferent ."
   },
   "dependencies": {
+    "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-query": "^5.28.6",
     "axios": "^1.6.8",
@@ -32,11 +33,11 @@
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.28.6",
+    "@types/dompurify": "^3.0.5",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
-    "@types/dompurify": "^3.0.5",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "concurrently": "^8.2.2",

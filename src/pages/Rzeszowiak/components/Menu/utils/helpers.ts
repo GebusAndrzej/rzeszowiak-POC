@@ -1,5 +1,17 @@
 import { createElementsFromHTML } from "@/lib/helpers/HTMLhelpers"
 
+export type MenuGroup = {
+    categoryName: string | null;
+    items: MenuItem[];
+}
+
+type MenuItem = {
+    url: string | undefined;
+    text: any;
+    count: string | null;
+    children?: MenuItem[];
+}
+
 export const parseMenuHTML = (html: string) => {
     const firstDivSelector = /<div\s+class="menu-left-middle">/gm
     const menuElements = html
@@ -27,35 +39,33 @@ const parseList = (list: HTMLUListElement) => {
         const listItem = list.children[i];
         const firstChild = listItem.firstChild as HTMLElement;
 
-        let groupData = {}
-
         if (firstChild.tagName == 'A') {
-            Object.assign(
-                groupData,
-                getAnchorData(firstChild as HTMLAnchorElement)
-            )
+            // INFO: If its jus anchor tag, parse data and add to array
+            const data = getAnchorData(firstChild as HTMLAnchorElement)
+
+            groups.push(data)
+            
         } else {
+            // INFO: if it's array, items belong to previous element - add them ad its children
             const children = parseList(firstChild.nextSibling as HTMLUListElement);
 
-            Object.assign(
-                groupData,
-                children,
-            )
-            groups[i-1].children = children
-        }
+            const previousElement = groups[i-1];
 
-        groups.push(groupData)
+            if (previousElement) {
+                groups[i-1].children = children
+            }
+        }
     }
 
     return groups;
 }
 
-const getAnchorData = (element: HTMLAnchorElement) => {
+const getAnchorData = (element: HTMLAnchorElement): MenuItem => {
     const children = element.childNodes;
-    const url = element.getAttribute('href')
+    const url = element.getAttribute('href')?.substring(1)
     
     const text = (children[2].textContent || '')
-        .replaceAll('+', '')
+        .replace('+', '')
         .trim()
 
     const count = children[3].textContent
