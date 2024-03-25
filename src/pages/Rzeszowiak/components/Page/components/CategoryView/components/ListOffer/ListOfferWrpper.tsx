@@ -6,6 +6,8 @@ type Props = {
     offer: Element;
 }
 
+const fileExtensionRegex = /\.([0-9a-z]+)(?:[\?#]|$)/i;
+
 const ListOfferWrapper = ({offer}: Props) => {
 
     const anchorData = useMemo(
@@ -13,17 +15,28 @@ const ListOfferWrapper = ({offer}: Props) => {
             const anchorElement = offer.querySelector('a') as HTMLAnchorElement
 
             const href = anchorElement.getAttribute('href') || '';
-            const title = anchorElement.textContent?.split('.')[1].substring(1)
+            const [, ...titleArr] = anchorElement.textContent?.split('.') as string[];
             const numbersInLink = href.match(/\d+/g);
             const offerId = numbersInLink?.[numbersInLink?.length -1];
             const pre = offerId?.substr(0,3)
 
             return {
-                title,
+                title: titleArr.join(),
                 href,
                 offerId,
                 pre,
             }
+        },
+        [offer]
+    )
+
+    const imageExtension = useMemo(
+        () => {
+            const imageElement = offer.querySelector('img');
+            const imageSrc = imageElement?.getAttribute('src');
+            const extension = imageSrc?.match(fileExtensionRegex)?.[1]
+
+            return extension
         },
         [offer]
     )
@@ -59,12 +72,13 @@ const ListOfferWrapper = ({offer}: Props) => {
 
     const props: TListOffer = useMemo(
         () => ({
-            imageUrl: `https://www.rzeszowiak.pl/img/ogl/${anchorData.pre}/${anchorData.offerId}_0.jpg`,
+            imageUrl: `https://www.rzeszowiak.pl/img/ogl/${anchorData.pre}/${anchorData.offerId}_0.${imageExtension}`,
             title: anchorData.title || '',
             description: descriptionData,
             localUrl: `/${APP_ROUTE.RZESZOWIAK}${anchorData.href}`,
             meta: {
-                price: priceData,
+                // price: priceData,
+                price: Intl.NumberFormat('pl-PL', {style: 'currency', currency: 'PLN', maximumFractionDigits: 0}).format(parseInt(priceData)),
                 place: "",
                 date: dateData,
                 phone: "",

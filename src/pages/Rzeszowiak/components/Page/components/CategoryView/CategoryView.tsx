@@ -18,7 +18,7 @@ const CategoryView = ({body}: Props) => {
         [content]
     )
 
-    const announcements = useMemo(
+    const announcementsList = useMemo(
         () => {
             const ret: Element[] = [];
             const promoOffersNodeList = content?.querySelectorAll(".promobox")
@@ -37,10 +37,9 @@ const CategoryView = ({body}: Props) => {
         [content]
     )
 
-    console.log(content)
-    console.log(announcements)
+    // console.log(content)
+    // console.log(announcements)
     
-
   return content && (
     <div>
         <div
@@ -48,7 +47,7 @@ const CategoryView = ({body}: Props) => {
         />
 
         <div className={styles.offerList}>
-            {announcements.map((announcement, index) => (
+            {announcementsList.map((announcement, index) => (
                 <ListOfferWrapper offer={announcement} key={index}/>
             ))}
         </div>
