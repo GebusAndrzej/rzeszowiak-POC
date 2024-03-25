@@ -21,7 +21,7 @@ const Menu = ({
     )
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col flex-1 sticky">
       <div>
         rzeszowiak
       </div>

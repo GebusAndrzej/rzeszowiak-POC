@@ -4,7 +4,7 @@ import axios, {
 } from 'axios'
 
 const axiosInstance: AxiosInstance = axios.create({
-        baseURL: 'https://api.example.com',
+        baseURL: import.meta.env.VITE_APP_BASE_URL,
     });
 
 axiosInstance.interceptors.request.use(

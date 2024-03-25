@@ -1,13 +1,15 @@
 import { NavLink } from "react-router-dom";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Button } from "@/components/ui/button";
-import { MenuGroup as TMenuGroup } from "../../utils/helpers";
+import { TMenuGroup as TMenuGroup } from "../../utils/helpers";
+import MenuItem from "../MenuItem/MenuItem";
 
 type Props = {
     category: TMenuGroup;
 }
 
 const MenuGroup = ({category}: Props) => {    
+
   return (
     <Collapsible key={category.categoryName} className="flex flex-col">
         <CollapsibleTrigger>
@@ -18,21 +20,7 @@ const MenuGroup = ({category}: Props) => {
 
         <CollapsibleContent>
             {category.items.map(menuItem => (
-                <NavLink 
-                    to={menuItem.url || ''} 
-                    key={menuItem.text}
-                    className={({ isActive }) =>
-                        isActive ? 'bg-green-500 font-bold' : 'bg-red-500 font-thin'
-                    }
-                >
-                    asd
-                    <div className="flex flex-col pl-1">
-                        <Button variant="ghost" size="sm">
-                            {menuItem.text}
-                            {menuItem.count}
-                        </Button>
-                    </div>
-                </NavLink>
+                <MenuItem item={menuItem} key={menuItem.url} />
             ))}
         </CollapsibleContent>
     </Collapsible>

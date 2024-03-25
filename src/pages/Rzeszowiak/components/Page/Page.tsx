@@ -3,15 +3,15 @@ import { useQuery } from "@tanstack/react-query"
 import { useMemo } from "react"
 import { parseHTMLResponse } from "@/lib/helpers/HTMLhelpers"
 import useConstructRzeszowiakUrl from "./hooks/useConstructRzeszowiakUrl"
-import CategoryView from "./CategoryView/CategoryView"
+import CategoryView from "./components/CategoryView/CategoryView"
 
 type Props = {}
 
 const Page = (props: Props) => {
-    const {slug,constructURL, isCategoryPage} = useConstructRzeszowiakUrl()
+    const {slug, isCategoryPage} = useConstructRzeszowiakUrl()
 
     const {data} = useQuery({
-        queryFn: () => AHttpClient.getPage(constructURL),
+        queryFn: () => AHttpClient.getPage(`https://www.rzeszowiak.pl/${slug}`),
         queryKey: ['rzeszowiak.page', slug]
     })
 

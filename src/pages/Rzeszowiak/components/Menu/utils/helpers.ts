@@ -1,15 +1,15 @@
 import { createElementsFromHTML } from "@/lib/helpers/HTMLhelpers"
 
-export type MenuGroup = {
+export type TMenuGroup = {
     categoryName: string | null;
-    items: MenuItem[];
+    items: TMenuItem[];
 }
 
-type MenuItem = {
+export type TMenuItem = {
     url: string | undefined;
     text: any;
     count: string | null;
-    children?: MenuItem[];
+    children?: TMenuItem[];
 }
 
 export const parseMenuHTML = (html: string) => {
@@ -60,7 +60,7 @@ const parseList = (list: HTMLUListElement) => {
     return groups;
 }
 
-const getAnchorData = (element: HTMLAnchorElement): MenuItem => {
+const getAnchorData = (element: HTMLAnchorElement): TMenuItem => {
     const children = element.childNodes;
     const url = element.getAttribute('href')?.substring(1)
     

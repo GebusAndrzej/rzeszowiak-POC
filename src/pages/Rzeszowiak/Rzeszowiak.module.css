@@ -3,5 +3,9 @@
     flex: 1;
     height: 100%;
     grid-template-areas: "menu page";
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 200px 1fr;
+}
+
+.page {
+    grid-area: page;
 }

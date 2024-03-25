@@ -2,7 +2,7 @@ import { PAGE_SIZE, SORT, TIME } from "@/pages/Rzeszowiak/common";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom"
 
-export const useConstructRzeszowiakUrl = () => {
+export const useConstructRzeszowiakUrl = (url?: string) => {
     const {slug} = useParams()
 
     const isCategoryPage = useMemo(
@@ -23,14 +23,20 @@ export const useConstructRzeszowiakUrl = () => {
     //category-xxx||| ||=ilość na stronie
     //            |||= strona
 
-    const constructURL = useMemo(
+    const urlFromQueryString = useMemo(
         () => `https://www.rzeszowiak.pl/${slug}${defaultPage}${defaultSort}${pageSize}${timeline}`,
         [slug]
     )
 
+    const createLocalUrl = useMemo(
+        () => `${url}${defaultPage}${defaultSort}${pageSize}${timeline}`,
+        [url]
+    )
+
     return {
         slug,
-        constructURL,
+        urlFromQueryString,
+        createLocalUrl,
         isCategoryPage
     }
 }

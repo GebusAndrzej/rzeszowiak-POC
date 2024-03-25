@@ -11,10 +11,9 @@ type Props = {}
 
 const Rzeszowiak = ({}: Props) => {
   const bodyRef = useRef<HTMLElement>()
-  // const [bodyElement, setBodyElement] = useState<string>('')
   const [menuElement, setMenuElement] = useState<string>()
 
-  const {data, isLoading, failureCount} = useQuery({
+  const {data, isLoading} = useQuery({
     queryFn: () => AHttpClient.getPage('https://www.rzeszowiak.pl/'),
     queryKey: ['rzeszowiak'],
   })
@@ -37,24 +36,23 @@ const Rzeszowiak = ({}: Props) => {
     <div className={styles.wrapper}>
       <Menu originalElement={menuElement} />
 
+      <div className={styles.page}>
+          {isLoading && (
+            "Loading..."
+          )}
+          
+          <Routes>
+            <Route
+              index
+              element={"index"}
+            />
 
-        <div>
-            {isLoading && (
-              "Loading..."
-            )}
-            
-            <Routes>
-              <Route
-                index
-                element={"index"}
-              />
-
-              <Route
-                path=':slug'
-                element={<Page />}
-              />
-            </Routes>
-        </div>
+            <Route
+              path=':slug'
+              element={<Page />}
+            />
+          </Routes>
+      </div>
     </div>
   )
 }
