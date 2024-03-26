@@ -1,24 +1,23 @@
-import React from 'react'
 import { NavLink } from 'react-router-dom';
-import styles from './PageCard.module.css'
+import styles from './PageCard.module.css';
 
 type Props = {
     name: string;
     url: string;
-}
+};
 
 const PageCard = ({
     name,
     url,
 }: Props) => {
-  return (
-    <NavLink 
-        to={url}
-        className={styles.wrapper}
-    >
-        {name}
-    </NavLink>
-  )
-}
+    return (
+        <NavLink
+            className={styles.wrapper}
+            to={url}
+        >
+            {name}
+        </NavLink>
+    );
+};
 
-export default PageCard
+export default PageCard;

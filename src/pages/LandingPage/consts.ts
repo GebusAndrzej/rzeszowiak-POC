@@ -1,8 +1,8 @@
-import { APP_ROUTE } from "app/appConsts";
+import { APP_ROUTE } from 'app/appConsts';
 
 export const pages = [
     {
-        name: "Rzeszowiak",
+        name: 'Rzeszowiak',
         url: APP_ROUTE.RZESZOWIAK,
-    }
-]
+    },
+];

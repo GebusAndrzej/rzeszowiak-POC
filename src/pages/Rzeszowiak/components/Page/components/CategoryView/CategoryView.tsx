@@ -1,58 +1,61 @@
-import React, { useMemo } from 'react'
 import ListOfferWrapper from './components/ListOffer/ListOfferWrpper';
-import styles from './CategoryView.module.css'
+import React, { useMemo } from 'react';
+import styles from './CategoryView.module.css';
 
 type Props = {
     body: HTMLElement;
-}
+};
 
-const CategoryView = ({body}: Props) => {
+const CategoryView = ({ body }: Props) => {
 
     const content = useMemo(
-        () => body.querySelector<HTMLDivElement>("#content-center"),
-        [body]
-    )
+        () => body.querySelector<HTMLDivElement>('#content-center'),
+        [ body ],
+    );
 
     const contentHeader = useMemo(
-        () => content?.querySelector<HTMLDivElement>(".box-header"),
-        [content]
-    )
+        () => content?.querySelector<HTMLDivElement>('.box-header'),
+        [ content ],
+    );
 
     const announcementsList = useMemo(
         () => {
             const ret: Element[] = [];
-            const promoOffersNodeList = content?.querySelectorAll(".promobox")
-            const normalOffersNodeList = content?.querySelectorAll(".normalbox")
+            const promoOffersNodeList = content?.querySelectorAll('.promobox');
+            const normalOffersNodeList = content?.querySelectorAll('.normalbox');
 
             if (promoOffersNodeList?.length) {
-                ret.push(...promoOffersNodeList)
+                ret.push(...promoOffersNodeList);
             }
 
             if (normalOffersNodeList?.length ) {
-                ret.push(...normalOffersNodeList)
+                ret.push(...normalOffersNodeList);
             }
 
             return ret;
         },
-        [content]
-    )
+        [ content ],
+    );
 
     // console.log(content)
     // console.log(announcements)
-    
-  return content && (
-    <div>
-        <div
-            dangerouslySetInnerHTML={{__html: contentHeader?.outerHTML}}
-        />
 
-        <div className={styles.offerList}>
-            {announcementsList.map((announcement, index) => (
-                <ListOfferWrapper offer={announcement} key={index}/>
-            ))}
+    return content && (
+        <div>
+            <div
+                dangerouslySetInnerHTML={{ __html: contentHeader?.outerHTML }}
+            />
+
+            <div className={styles.offerList}>
+                {announcementsList.map((announcement, index) => (
+                    <ListOfferWrapper
+                        key={index}
+                        offer={announcement}
+                    />
+                ))}
+            </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default CategoryView
+export default CategoryView;

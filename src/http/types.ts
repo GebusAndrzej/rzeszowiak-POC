@@ -1,5 +1,5 @@
-import { AxiosInstance } from "axios";
+import { AxiosInstance } from 'axios';
 
 export interface IHttpClient {
-    http: AxiosInstance
-};
+    http: AxiosInstance;
+}

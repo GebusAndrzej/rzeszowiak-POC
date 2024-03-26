@@ -1,21 +1,21 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tsconfigPaths from 'vite-tsconfig-paths'
-import million from "million/compiler";
+import { defineConfig } from 'vite';
+import million from 'million/compiler';
+import react from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(), 
-    tsconfigPaths(),
-    million.vite({ auto: true }),
-  ],
-  resolve: {
-    alias: [{ find: '@', replacement: '/src' }],
-  },
-  css: {
-      modules: {
-          localsConvention: 'camelCase',
-      }
-  }
-})
+    css: {
+        modules: {
+            localsConvention: 'camelCase',
+        },
+    },
+    plugins: [
+        react(),
+        tsconfigPaths(),
+        million.vite({ auto: true }),
+    ],
+    resolve: {
+        alias: [ { find: '@', replacement: '/src' } ],
+    },
+});

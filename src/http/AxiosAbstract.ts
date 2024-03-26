@@ -1,8 +1,8 @@
-import axiosInstance from "./AxiosInstance";
+import axiosInstance from './AxiosInstance';
 
 export abstract class AHttpClient {
 
     public static getPage = (url: string) => axiosInstance
         .get<string>(`proxy?q=${url}`)
-        .then(response => response.data)
+        .then(response => response.data);
 }
