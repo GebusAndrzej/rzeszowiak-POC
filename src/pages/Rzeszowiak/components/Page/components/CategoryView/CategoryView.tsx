@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import ListOfferWrapper from './components/ListOffer/ListOfferWrapper';
 import styles from './CategoryView.module.css';
+import Pagination from '@/components/Pagination/Pagination';
 
 type Props = {
     body: HTMLElement;
@@ -37,6 +38,20 @@ const CategoryView = ({ body }: Props) => {
         [ content ],
     );
 
+    const pageInfo = useMemo(
+        () => {
+            const textValue = content?.querySelector('#oDnns')?.textContent;
+            const s = textValue?.replace('Strona', '')
+                .split("z");
+
+            return {
+                current: +(s?.[0] || 0),
+                max: +(s?.[1] || 0),
+            }
+        },
+        [content]
+    )
+
     return content && (
         <div>
             <div
@@ -51,6 +66,13 @@ const CategoryView = ({ body }: Props) => {
                     />
                 ))}
             </div>
+
+            <Pagination 
+                currentPage={pageInfo.current} 
+                pages={pageInfo.max}
+                onPageChange={console.log}
+                linkGenerator={(number) => `#hello${number}-x`}
+            />
         </div>
     );
 };

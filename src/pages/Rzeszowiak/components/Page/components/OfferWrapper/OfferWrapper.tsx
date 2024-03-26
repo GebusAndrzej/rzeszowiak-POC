@@ -1,58 +1,46 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { processBody } from './helpers';
+import { SITE_URL } from '@/pages/Rzeszowiak/common';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 type Props = {
     body: HTMLElement;
 };
 
 const OfferWrapper = ({ body }: Props) => {
+    useEffect(
+        () => {
+            window.scrollTo({top: 0})
+            return;
+        },
+        []
+    )
 
     const content = useMemo(
-        () => body.querySelector<HTMLDivElement>('#content-center'),
+        () => processBody(body),
         [ body ],
     );
 
-    const contentss = useMemo(
-        () => {
-            const contents = [ ...content?.querySelectorAll('.ogloszeniebox-content') || [] ];
-
-            const baseData = contents.splice(0, 5);
-            const textContent = contents.splice(0, 1);
-            const otherAnnouncements: Element[] = [];
-            let photoElement: Element = undefined;
-
-            contents.forEach((element, index) => {
-                const other_ad = element.querySelector('.content_other');
-                const photos = element.querySelector('#photos');
-
-                if (other_ad) {
-                    otherAnnouncements.push(other_ad);
-                    delete contents[index];
-                    // continue;
-                }
-
-                if (photos) {
-                    photoElement = photos;
-                    delete contents[index];
-                }
-            });
-
-            console.log({
-                baseData,
-                otherAnnouncements,
-                photoElement,
-                textContent,
-            });
-
-            console.log(contents.map(x => x.outerHTML));
-
-        },
-        [ content ],
-    );
+    console.log(content.baseData)
+    console.log(content.rest.map(x => x.outerHTML))
 
     return (
         <div>
+            <Carousel>
+                <CarouselContent>
+                    {content.photos.map(url => 
+                    <CarouselItem key={url}>
+                        <img src={`${SITE_URL}${url}`} key={url}/>
+                    </CarouselItem>
+                    )}
+                </CarouselContent>
+
+                <CarouselPrevious />
+                <CarouselNext />
+            </Carousel>
+
             <div
-                dangerouslySetInnerHTML={{ __html: content?.outerHTML }}
+                dangerouslySetInnerHTML={{ __html: content?.description }}
             />
         </div>
     );

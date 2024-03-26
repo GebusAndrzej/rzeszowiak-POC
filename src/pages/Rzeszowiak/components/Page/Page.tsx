@@ -20,8 +20,8 @@ const Page = () => {
             const numbers = slug?.match(numberRegex) || [];
 
             return {
-                list: numbers[0]?.length === 10,
-                offer: numbers[0]?.length === 8,
+                list: numbers[numbers.length - 1]?.length === 10,
+                offer: numbers[numbers. length - 1]?.length === 8,
             };
         },
         [ slug ],

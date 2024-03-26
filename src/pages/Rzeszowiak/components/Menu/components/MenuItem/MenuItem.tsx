@@ -14,9 +14,17 @@ const MenuItem = ({ item }: Props) => {
 
     return isGroup
         ? (
-            <div>
-                GROUP: {item.text}
-            </div>
+            <>
+                <NavLink to={localURL}>
+                    GROUP: {item.text}
+                </NavLink>
+
+                <div className='bg-slate-200'>
+                    {item.children?.map(item => (
+                        <MenuItem item={item} key={item.url} />
+                    ))}
+                </div>
+            </>
         )
         : (
             <NavLink
@@ -27,7 +35,6 @@ const MenuItem = ({ item }: Props) => {
                 key={item.text}
                 to={localURL}
             >
-                {/* asd */}
                 <div className="flex flex-col pl-1">
                     <Button
                         size="sm"
