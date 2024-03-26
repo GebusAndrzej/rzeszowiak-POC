@@ -1,22 +1,36 @@
 import { AHttpClient } from '@/http/AxiosAbstract';
+import {
+    QUERY_KEY,
+    SITE_URL,
+} from '../../common';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import CategoryView from './components/CategoryView/CategoryView';
-import useConstructRzeszowiakUrl from './hooks/useConstructRzeszowiakUrl';
+import OfferWrapper from './components/OfferWrapper/OfferWrapper';
 
-type Props = {};
+const numberRegex = /\d+/g;
 
-const Page = (props: Props) => {
-    const {
-        isCategoryPage,
-        slug,
-    } = useConstructRzeszowiakUrl();
+const Page = () => {
+    const { slug } = useParams();
+
+    const pageType = useMemo(
+        () => {
+            const numbers = slug?.match(numberRegex) || [];
+
+            return {
+                list: numbers[0]?.length === 10,
+                offer: numbers[0]?.length === 8,
+            };
+        },
+        [ slug ],
+    );
 
     const { data } = useQuery({
-        queryFn: () => AHttpClient.getPage(`https://www.rzeszowiak.pl/${slug}`),
+        queryFn: () => AHttpClient.getPage(`${SITE_URL}/${slug}`),
         queryKey: [
-            'rzeszowiak.page',
+            QUERY_KEY.PAGE,
             slug,
         ],
     });
@@ -27,17 +41,19 @@ const Page = (props: Props) => {
         <div>
             {slug}
 
-            {isCategoryPage
-                ? (
-                    <CategoryView
-                        body={html.body}
-                        key={slug}
-                    />
-                )
-                : (
-                    'offer'
-                )
-            }
+            {pageType.list && (
+                <CategoryView
+                    body={html.body}
+                    key={slug}
+                />
+            )}
+
+            {pageType.offer && (
+                <OfferWrapper
+                    body={html.body}
+                    key={slug}
+                />
+            )}
         </div>
     );
 };

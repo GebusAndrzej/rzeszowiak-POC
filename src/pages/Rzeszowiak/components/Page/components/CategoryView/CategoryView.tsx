@@ -1,5 +1,5 @@
-import ListOfferWrapper from './components/ListOffer/ListOfferWrpper';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+import ListOfferWrapper from './components/ListOffer/ListOfferWrapper';
 import styles from './CategoryView.module.css';
 
 type Props = {
@@ -36,9 +36,6 @@ const CategoryView = ({ body }: Props) => {
         },
         [ content ],
     );
-
-    // console.log(content)
-    // console.log(announcements)
 
     return content && (
         <div>

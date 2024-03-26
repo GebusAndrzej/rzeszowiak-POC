@@ -14,7 +14,14 @@ export enum SORT {
 }
 
 export enum PAGE_SIZE {
-    '15' = 15,
-    '25' = 25,
-    '50' = 50,
+    '15_ITEMS' = 15,
+    '25_ITEMS' = 25,
+    '50_ITEMS' = 50,
+}
+
+export const SITE_URL = 'https://www.rzeszowiak.pl' as const;
+
+export enum QUERY_KEY {
+    MAIN_PAGE = 'rzeszowiak.main',
+    PAGE = 'rzeszowiak.page'
 }

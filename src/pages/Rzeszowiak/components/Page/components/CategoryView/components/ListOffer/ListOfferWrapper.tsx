@@ -1,4 +1,5 @@
 import { APP_ROUTE } from 'app/appConsts';
+import { SITE_URL } from '@/pages/Rzeszowiak/common';
 import { useMemo } from 'react';
 import ListOffer, { TListOffer } from '@/components/ui/ListOffer/ListOffer';
 
@@ -73,16 +74,12 @@ const ListOfferWrapper = ({ offer }: Props) => {
     const props: TListOffer = useMemo(
         () => ({
             description: descriptionData,
-            imageUrl: `https://www.rzeszowiak.pl/img/ogl/${anchorData.pre}/${anchorData.offerId}_0.${imageExtension}`,
+            imageUrl: `${SITE_URL}/img/ogl/${anchorData.pre}/${anchorData.offerId}_0.${imageExtension}`,
             localUrl: `/${APP_ROUTE.RZESZOWIAK}${anchorData.href}`,
             meta: {
-
                 date: dateData,
-
-                originalUrl: `https://www.rzeszowiak.pl${anchorData.href}`,
-
+                originalUrl: `${SITE_URL}${anchorData.href}`,
                 phone: '',
-
                 place: '',
                 // price: priceData,
                 price: Intl.NumberFormat('pl-PL', { currency: 'PLN', maximumFractionDigits: 0, style: 'currency' }).format(parseInt(priceData)),

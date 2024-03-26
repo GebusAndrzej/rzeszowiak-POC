@@ -1,5 +1,9 @@
 import { AHttpClient } from '@/http/AxiosAbstract';
 import {
+    QUERY_KEY,
+    SITE_URL,
+} from './common';
+import {
     Route,
     Routes,
 } from 'react-router-dom';
@@ -23,8 +27,8 @@ const Rzeszowiak = () => {
         data,
         isLoading,
     } = useQuery({
-        queryFn: () => AHttpClient.getPage('https://www.rzeszowiak.pl/'),
-        queryKey: [ 'rzeszowiak' ],
+        queryFn: () => AHttpClient.getPage(SITE_URL),
+        queryKey: [ QUERY_KEY.MAIN_PAGE ],
     });
 
     const html = useMemo(() => parseHTMLResponse(data), [ data ]);

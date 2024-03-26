@@ -1,23 +1,21 @@
 import { Button } from '@/components/ui/button';
 import { NavLink } from 'react-router-dom';
 import { TMenuItem } from '../../utils/helpers';
-import useConstructRzeszowiakUrl from '../../../Page/hooks/useConstructRzeszowiakUrl';
+import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
+import { useMemo } from 'react';
 
 type Props = {
     item: TMenuItem;
 };
 
 const MenuItem = ({ item }: Props) => {
-    console.log(item, item.children?.length);
-
     const isGroup = !!item.children?.length;
-
-    const { createLocalUrl: urlFromArgument } = useConstructRzeszowiakUrl(item.url);
+    const localURL = useMemo(() => constructCategoryUrl(item.url || ''), [ item.url ]);
 
     return isGroup
         ? (
             <div>
-            GROUP: {item.text}
+                GROUP: {item.text}
             </div>
         )
         : (
@@ -27,9 +25,9 @@ const MenuItem = ({ item }: Props) => {
                     : 'bg-red-500 font-thin'
                 }
                 key={item.text}
-                to={urlFromArgument}
+                to={localURL}
             >
-            asd
+                {/* asd */}
                 <div className="flex flex-col pl-1">
                     <Button
                         size="sm"

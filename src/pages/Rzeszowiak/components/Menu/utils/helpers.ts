@@ -12,28 +12,21 @@ export type TMenuItem = {
     children?: TMenuItem[];
 };
 
-export const parseMenuHTML = (html: string) => {
-    const firstDivSelector = /<div\s+class="menu-left-middle">/gm;
-    const menuElements = html
-        .replace(firstDivSelector, '')
-        .split('<br>');
+const getAnchorData = (element: HTMLAnchorElement): TMenuItem => {
+    const children = element.childNodes;
+    const url = element.getAttribute('href')?.substring(1);
 
-    menuElements.pop();
+    const text = (children[2].textContent || '')
+        .replace('+', '')
+        .trim();
 
-    return menuElements.map(menuElement => {
-        const [
-            category,
-            _,
-            list,
-        ] = createElementsFromHTML(menuElement);
+    const count = children[3].textContent;
 
-        const menuItem = {
-            categoryName: category.textContent,
-            items: parseList(list as HTMLUListElement),
-        };
-
-        return menuItem;
-    });
+    return {
+        count,
+        text,
+        url,
+    };
 };
 
 const parseList = (list: HTMLUListElement) => {
@@ -64,19 +57,27 @@ const parseList = (list: HTMLUListElement) => {
     return groups;
 };
 
-const getAnchorData = (element: HTMLAnchorElement): TMenuItem => {
-    const children = element.childNodes;
-    const url = element.getAttribute('href')?.substring(1);
+export const parseMenuHTML = (html: string) => {
+    const firstDivSelector = /<div\s+class="menu-left-middle">/gm;
+    const menuElements = html
+        .replace(firstDivSelector, '')
+        .split('<br>');
 
-    const text = (children[2].textContent || '')
-        .replace('+', '')
-        .trim();
+    menuElements.pop();
 
-    const count = children[3].textContent;
+    return menuElements.map(menuElement => {
+        const [
+            category,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            _,
+            list,
+        ] = createElementsFromHTML(menuElement);
 
-    return {
-        count,
-        text,
-        url,
-    };
+        const menuItem = {
+            categoryName: category.textContent,
+            items: parseList(list as HTMLUListElement),
+        };
+
+        return menuItem;
+    });
 };
