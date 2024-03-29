@@ -9,10 +9,7 @@ import {
 } from 'react-router-dom';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import {
-    useEffect,
     useMemo,
-    useRef,
-    useState,
 } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Menu from './components/Menu/Menu';
@@ -20,9 +17,6 @@ import Page from './components/Page/Page';
 import styles from './Rzeszowiak.module.css';
 
 const Rzeszowiak = () => {
-    const bodyRef = useRef<HTMLElement>();
-    const [ menuElement, setMenuElement ] = useState<string>();
-
     const {
         data,
         isLoading,
@@ -31,19 +25,15 @@ const Rzeszowiak = () => {
         queryKey: [ QUERY_KEY.MAIN_PAGE ],
     });
 
-    const html = useMemo(() => parseHTMLResponse(data), [ data ]);
-
-    useEffect(
-        () => {
-            const body = html.body;
-            const menu = html.querySelector<HTMLDivElement>('.menu-left-middle');
-
-            // setBodyElement(body.outerHTML)
-            setMenuElement(menu?.outerHTML);
-            bodyRef.current = body;
-        },
-        [ html ],
+    const html = useMemo(
+        () => parseHTMLResponse(data), 
+        [ data ]
     );
+
+    const menuElement = useMemo(
+        () => html.querySelector<HTMLDivElement>('.menu-left-middle')?.outerHTML,
+        [html]
+    )
 
     return (
         <div className={styles.wrapper}>

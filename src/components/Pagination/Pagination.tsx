@@ -18,54 +18,83 @@ const Pagination = ({
         () => Array.from({length: pages}, (_, i) => i + 1)
             .map(number => ({
                 number,
-                href: linkGenerator?.(number),
+                href: linkGenerator?.(`${number}`),
             })),
         [pages]
     )
 
-    console.log(numbers)
+    const visiblePages = useMemo(
+        () => new Set([
+            1,
+            pages,
+            currentPage,
+            currentPage - 1,
+            currentPage + 1
+        ]),
+        [currentPage, pages]
+    )
+
+    const ellipsis = useMemo(
+        () => new Set([
+            currentPage - 2,
+            currentPage + 2
+        ]),
+        [currentPage]
+    )
 
   return (
     <div>
         <PaginationUI>
             <PaginationContent>
-                <PaginationItem>
-                    <PaginationPrevious
-                        onClick={() => currentPage === 1
-                            ? onPageChange?.(1)
-                            : onPageChange?.(currentPage - 1)
-                        }
-                        href={currentPage === 1
-                            ? numbers[0].href
-                            : numbers[currentPage - 2].href
-                        }
-                    />
-                </PaginationItem>
+                {currentPage !== 1 && (
+                    <PaginationItem>
+                        <PaginationPrevious
+                            onClick={() => currentPage === 1
+                                ? onPageChange?.(1)
+                                : onPageChange?.(currentPage - 1)
+                            }
+                            href={currentPage === 1
+                                ? numbers[0].href
+                                : numbers[currentPage - 2].href
+                            }
+                            />
+                    </PaginationItem>
+                )}
 
                 {numbers.map(({number, href}) => (
-                    <PaginationItem key={number}>
-                        <PaginationLink 
-                            isActive={number === currentPage}
-                            href={href}
-                            onClick={() => onPageChange?.(number)}
-                        >
-                                {number}
-                            </PaginationLink>
-                    </PaginationItem>
+                    visiblePages.has(number) 
+                        ? (
+                            <PaginationItem key={number}>
+                                <PaginationLink 
+                                    isActive={number === currentPage}
+                                    href={href}
+                                    onClick={() => onPageChange?.(number)}
+                                >
+                                    {number}
+                                </PaginationLink>
+                            </PaginationItem>
+                        )   
+                        : ellipsis.has(number) && (
+                            <PaginationItem>
+                                <PaginationEllipsis />
+                            </PaginationItem>
+                        )
                 ))}
 
-                <PaginationItem>
-                    <PaginationNext 
-                        onClick={() => currentPage < pages
-                            ? onPageChange?.(currentPage + 1)
-                            : onPageChange?.(currentPage)
-                        }
-                        href={currentPage < pages
-                            ? numbers[currentPage].href
-                            : numbers[pages - 1].href
-                        }
-                    />
-                </PaginationItem>
+                {currentPage !== pages && (
+                    <PaginationItem>
+                        <PaginationNext 
+                            onClick={() => currentPage < pages
+                                ? onPageChange?.(currentPage + 1)
+                                : onPageChange?.(currentPage)
+                            }
+                            href={currentPage < pages
+                                ? numbers[currentPage].href
+                                : numbers[pages - 1].href
+                            }
+                            />
+                    </PaginationItem>
+                )}
             </PaginationContent>
         </PaginationUI>
     </div>

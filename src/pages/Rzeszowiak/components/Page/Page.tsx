@@ -9,26 +9,13 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import CategoryView from './components/CategoryView/CategoryView';
 import OfferWrapper from './components/OfferWrapper/OfferWrapper';
+import useQueryParams from '@/lib/hooks/useQueryParams';
 
 const numberRegex = /\d+/g;
 
 const Page = () => {
     const { slug } = useParams();
-    const [queryParams] = useSearchParams();
-
-    const constructQueryParams = useMemo(
-        () => {
-            const params = [];
-
-            for (const entry of queryParams.entries()) {
-                console.log(entry)
-                params.push(`${entry[0]}=${entry[1]}`)
-            }
-
-            return `?${params.join('&')}`
-        },
-        [queryParams]
-    )
+    const {queryParamsUrl} = useQueryParams()
 
     const pageType = useMemo(
         () => {
@@ -43,11 +30,11 @@ const Page = () => {
     );
 
     const { data } = useQuery({
-        queryFn: () => AHttpClient.getPage(`${SITE_URL}/${slug}${constructQueryParams}`),
+        queryFn: () => AHttpClient.getPage(`${SITE_URL}/${slug}${queryParamsUrl}`),
         queryKey: [
             QUERY_KEY.PAGE,
             slug,
-            constructQueryParams,
+            queryParamsUrl,
         ],
     });
 

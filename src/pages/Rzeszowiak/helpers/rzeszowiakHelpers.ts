@@ -15,9 +15,9 @@ export const constructCategoryUrl = (
     url: string,
     options: {
         page?: string;
-        sort?: SORT;
-        size?: PAGE_SIZE;
-        time?: TIME;
+        sort?: SORT | string;
+        size?: PAGE_SIZE | string;
+        time?: TIME | string;
     } = {
         page: '001',
         size: PAGE_SIZE['15_ITEMS'],
