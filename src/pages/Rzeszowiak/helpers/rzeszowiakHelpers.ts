@@ -24,4 +24,12 @@ export const constructCategoryUrl = (
         sort: SORT.DATE_DESC,
         time: TIME['30D'],
     },
-) => `${url}${options.page}${options.sort}${options.size}${options.time}`;
+) => {
+    const [mainUrl, originalQueryString] = url.split('?');
+
+    const queryString = originalQueryString
+        ? `?${originalQueryString}`
+        : ''
+    
+    return `${mainUrl}${options.page}${options.sort}${options.size}${options.time}${queryString}`
+};
