@@ -68,9 +68,10 @@ const CategoryView = ({ body }: Props) => {
                    size: slugUrlParams.size,
                    sort: slugUrlParams.sort,
                    time: slugUrlParams.time
-                });
+                }
+            );
             
-                return `/${APP_ROUTE.RZESZOWIAK}/${categoryUrl}${queryParamsUrl}`
+            return `/${APP_ROUTE.RZESZOWIAK}/${categoryUrl}${queryParamsUrl}`
         },
         [queryParamsUrl,slugUrlParams,slugWithCategory]
     )
