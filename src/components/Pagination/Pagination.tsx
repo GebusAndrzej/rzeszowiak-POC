@@ -6,6 +6,7 @@ type Props = {
     pages: number;
     onPageChange?: (newPageNo: number) => void;
     linkGenerator?: (number: string) => string;
+    className?: string;
 }
 
 const Pagination = ({
@@ -13,6 +14,7 @@ const Pagination = ({
     pages,
     onPageChange,
     linkGenerator,
+    className,
 }: Props) => {
     const numbers = useMemo(
         () => Array.from({length: pages}, (_, i) => i + 1)
@@ -43,7 +45,7 @@ const Pagination = ({
     )
 
   return (
-    <div>
+    <div className={className}>
         <PaginationUI>
             <PaginationContent>
                 {currentPage !== 1 && (
@@ -75,7 +77,7 @@ const Pagination = ({
                             </PaginationItem>
                         )   
                         : ellipsis.has(number) && (
-                            <PaginationItem>
+                            <PaginationItem key={number}>
                                 <PaginationEllipsis />
                             </PaginationItem>
                         )

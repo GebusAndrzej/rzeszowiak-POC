@@ -1,0 +1,15 @@
+.filtersBar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    padding: 8px
+}
+
+.row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}

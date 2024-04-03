@@ -5,6 +5,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import useRzeszowiakCategoryPageController from './hooks/useRzeszowiakCategoryPageController';
 import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
 import { APP_ROUTE } from 'app/appConsts';
+import ListFilters from './components/ListFilters/ListFilters';
 
 type Props = {
     body: HTMLElement;
@@ -19,7 +20,7 @@ const CategoryView = ({ body }: Props) => {
     );
 
     const contentHeader = useMemo(
-        () => content?.querySelector<HTMLDivElement>('.box-header'),
+        () => content?.querySelector<HTMLDivElement>('.box-header')?.textContent,
         [ content ],
     );
 
@@ -83,21 +84,15 @@ const CategoryView = ({ body }: Props) => {
     )
 
     return content && (
-        <div>
-            <div
-                dangerouslySetInnerHTML={{ __html: contentHeader?.outerHTML }}
+        <div className={styles.wrapper}>
+            <ListFilters 
+                pageInfo={pageInfo}
+                paginationLinkGenerator={generatePaginationUrl}
             />
 
             <div>
-                tu jakieś page size itd
+                {contentHeader}
             </div>
-
-            <Pagination 
-                currentPage={pageInfo.current} 
-                pages={pageInfo.max}
-                onPageChange={scrollTop}
-                linkGenerator={generatePaginationUrl}
-            />
 
             <div className={styles.offerList}>
                 {announcementsList.map((announcement, index) => (
@@ -108,7 +103,7 @@ const CategoryView = ({ body }: Props) => {
                 ))}
             </div>
 
-            <Pagination 
+            <Pagination
                 currentPage={pageInfo.current} 
                 pages={pageInfo.max}
                 onPageChange={scrollTop}
