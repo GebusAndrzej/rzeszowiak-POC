@@ -5,7 +5,7 @@ import {
 } from '../../common';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import CategoryView from './components/CategoryView/CategoryView';
 import OfferWrapper from './components/OfferWrapper/OfferWrapper';

@@ -1,7 +1,7 @@
 import { AHttpClient } from '@/http/AxiosAbstract';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useQuery } from '@tanstack/react-query';
-import React, {
+import {
     useEffect,
     useMemo,
     useState,
@@ -12,7 +12,6 @@ const Tarnowiak = () => {
 
     const {
         data,
-        isLoading,
     } = useQuery({
         queryFn: () => AHttpClient.getPage('https://www.tarnowiak.pl/'),
         queryKey: [ 'tarnowiak' ],
@@ -37,7 +36,7 @@ const Tarnowiak = () => {
         Tarnowiak
 
             <div
-                dangerouslySetInnerHTML={{ __html: menuElement }}
+                dangerouslySetInnerHTML={{ __html: menuElement || '' }}
             />
         </div>
     );
