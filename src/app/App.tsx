@@ -21,7 +21,7 @@ function App() {
     return (
         <div className={styles.app}>
             <QueryClientProvider client={queryClient}>
-                <BrowserRouter>
+                <BrowserRouter basename={'/rzeszowiak-POC/'}>
                     <Routes>
                         <Route
                             element={<LandingPage />}

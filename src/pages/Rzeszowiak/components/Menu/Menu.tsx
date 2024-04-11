@@ -1,12 +1,16 @@
 import { parseMenuHTML } from './utils/helpers';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import MenuGroup from './components/MenuGroup/MenuGroup';
+import styles from './Menu.module.css'
+import { ArrowLeftIcon } from 'lucide-react';
+import clsx from 'clsx';
 
 type Props = {
     originalElement?: string;
 };
 
 const Menu = ({ originalElement = '' }: Props) => {
+    const [isCollapsed, setIsCollapsed] = useState(false)
 
     const parsedMenu = useMemo(
         () => {
@@ -19,9 +23,15 @@ const Menu = ({ originalElement = '' }: Props) => {
     );
 
     return (
-        <div className="flex flex-col flex-1 sticky">
-            <div>
-        rzeszowiak
+        <div className={clsx(
+            styles.wrapper,
+            isCollapsed && styles.collapsed
+        )}>
+            <div className={styles.pageLogo}
+                onClick={() => setIsCollapsed(prev => !prev)}
+            >
+                <ArrowLeftIcon/>
+                rzeszowiak
             </div>
 
             {parsedMenu?.map(category => (

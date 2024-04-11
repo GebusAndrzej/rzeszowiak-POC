@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/collapsible';
 import { TMenuGroup as TMenuGroup } from '../../utils/helpers';
 import MenuItem from '../MenuItem/MenuItem';
+import styles from './MenuGroup.module.css'
 
 type Props = {
     category: TMenuGroup;
@@ -14,20 +15,12 @@ type Props = {
 const MenuGroup = ({ category }: Props) => {
 
     return (
-        <Collapsible
-            className="flex flex-col"
-            key={category.categoryName}
-        >
-            <CollapsibleTrigger>
-                <Button
-                    className="flex flex-column"
-                    variant="outline"
-                >
-                    {category.categoryName}
-                </Button>
+        <Collapsible key={category.categoryName}>
+            <CollapsibleTrigger className={styles.trigger}>
+                {category.categoryName}
             </CollapsibleTrigger>
 
-            <CollapsibleContent>
+            <CollapsibleContent className={styles.content}>
                 {category.items.map(menuItem => (
                     <MenuItem
                         item={menuItem}

@@ -5,7 +5,7 @@ import styles from './LandingPage.module.css';
 const LandingPage = () => {
     return (
         <main className={styles.wrapper}>
-            <h2>Portale w jednym miejscu</h2>
+            <h2>marketplace</h2>
 
             <div className={styles.pages}>
                 {pages.map(page => (

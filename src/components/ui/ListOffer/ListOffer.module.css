@@ -41,6 +41,7 @@
     .description {
         flex: 1;
         overflow-y: hidden;
+        max-height: 72px;
     }
 
     .meta {

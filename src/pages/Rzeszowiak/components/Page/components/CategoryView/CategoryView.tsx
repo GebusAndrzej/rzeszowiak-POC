@@ -85,32 +85,34 @@ const CategoryView = ({ body }: Props) => {
     )
 
     return content && (
-        <div className={styles.wrapper}>
+        <>
             <ListFilters 
                 pageInfo={pageInfo}
                 paginationLinkGenerator={generatePaginationUrl}
             />
 
-            <div>
-                {contentHeader}
-            </div>
+            <div className={styles.wrapper}>
+                <div>
+                    {contentHeader}
+                </div>
 
-            <div className={styles.offerList}>
-                {announcementsList.map((announcement, index) => (
-                    <ListOfferWrapper
-                        key={index}
-                        offer={announcement}
-                    />
-                ))}
-            </div>
+                <div className={styles.offerList}>
+                    {announcementsList.map((announcement, index) => (
+                        <ListOfferWrapper
+                            key={index}
+                            offer={announcement}
+                        />
+                    ))}
+                </div>
 
-            <Pagination
-                currentPage={pageInfo.current} 
-                pages={pageInfo.max}
-                onPageChange={scrollTop}
-                linkGenerator={generatePaginationUrl}
-            />
-        </div>
+                <Pagination
+                    currentPage={pageInfo.current} 
+                    pages={pageInfo.max}
+                    onPageChange={scrollTop}
+                    linkGenerator={generatePaginationUrl}
+                />
+            </div>
+        </>
     );
 };
 
