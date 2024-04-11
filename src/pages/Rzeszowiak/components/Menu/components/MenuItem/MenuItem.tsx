@@ -1,4 +1,4 @@
-import { NavLink, useParams, useSearchParams } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { TMenuItem } from '../../utils/helpers';
 import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
 import { useMemo } from 'react';
