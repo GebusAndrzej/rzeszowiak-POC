@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
     box-shadow: 0px 0px 7px gray;
-    border-radius: 16px;
+    border-radius: 4px;
     overflow: hidden;
 }
 

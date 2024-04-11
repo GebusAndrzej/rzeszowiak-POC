@@ -1,7 +1,7 @@
 import { APP_ROUTE } from 'app/appConsts';
 import { SITE_URL } from '@/pages/Rzeszowiak/common';
 import { useMemo } from 'react';
-import ListOffer, { TListOffer } from '@/components/ui/ListOffer/ListOffer';
+import ListOffer, { TListOffer } from '@/components/ListOffer/ListOffer';
 
 type Props = {
     offer: Element;
@@ -14,7 +14,7 @@ const ListOfferWrapper = ({ offer }: Props) => {
     const anchorData = useMemo(
         () => {
             const anchorElement = offer.querySelector('a') as HTMLAnchorElement;
-
+            
             const href = anchorElement.getAttribute('href') || '';
             const [ , ...titleArr ] = anchorElement.textContent?.split('.') as string[];
             const numbersInLink = href.match(/\d+/g);

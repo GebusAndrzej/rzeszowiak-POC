@@ -1,0 +1,49 @@
+.wrapper {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.firstRow {
+    display: flex;
+    gap: 16px;
+}
+
+.carousel {
+    box-shadow: 0 0 5px gray;
+    border-radius: 4px;
+    max-width: 50%;
+    display: flex;
+    overflow: hidden;
+    
+    .carouselItem {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.mainData {
+    flex: 1;
+    border-radius: 4px;
+    box-shadow: 0 0 5px gray;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+
+    .grid {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+    }
+}
+
+.description {
+    border-radius: 4px;
+    box-shadow: 0 0 5px gray;
+    padding: 16px;
+}
+
+.additionalInfo {
+    margin-top: 16px;
+}

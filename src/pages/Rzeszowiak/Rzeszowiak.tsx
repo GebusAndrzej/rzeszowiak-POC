@@ -23,6 +23,7 @@ const Rzeszowiak = () => {
     } = useQuery({
         queryFn: () => AHttpClient.getPage(SITE_URL),
         queryKey: [ QUERY_KEY.MAIN_PAGE ],
+        refetchOnWindowFocus: false,
     });
 
     const html = useMemo(

@@ -1,3 +1,5 @@
+import { OFFER_ADDITIONAL_BLACKLIST } from "./consts";
+
 export const processBody = (body: HTMLElement) => {
     const mainContent = body.querySelector<HTMLDivElement>('#content-center');
 
@@ -11,6 +13,7 @@ export const processBody = (body: HTMLElement) => {
     contents.forEach((element, index) => {
         const other_ad = element.querySelector('.content_other');
         const photos = element.querySelector('#photos');
+        const textContent = element.textContent
 
         if (other_ad) {
             otherAnnouncements.push(other_ad);
@@ -21,6 +24,10 @@ export const processBody = (body: HTMLElement) => {
             photoElement = photos;
             delete contents[index];
         }
+
+        if (OFFER_ADDITIONAL_BLACKLIST.some(word => textContent?.includes(word))) {
+            delete contents[index]
+        }
     });
 
     return {
@@ -28,6 +35,7 @@ export const processBody = (body: HTMLElement) => {
         description: textContent[0]?.outerHTML,
         photos: getImageLinks(photoElement),
         rest: contents.filter(Boolean),
+        otherAnnouncements: otherAnnouncements
     }
 }
 

@@ -36,6 +36,7 @@ const Page = () => {
             slug,
             queryParamsUrl,
         ],
+        refetchOnWindowFocus: false,
     });
 
     const html = useMemo(() => parseHTMLResponse(data), [ data ]);
