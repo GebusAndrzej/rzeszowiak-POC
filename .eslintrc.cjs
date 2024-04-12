@@ -11,7 +11,8 @@ module.exports = {
     'dist',
     '.eslintrc.cjs',
     '**/*.module.css.d.ts',
-    '*.config.js'
+    '*.config.js',
+    '.stylelintrc.json'
   ],
   parser: '@typescript-eslint/parser',
   plugins: [

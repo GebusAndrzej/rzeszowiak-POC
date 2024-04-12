@@ -19,6 +19,7 @@ const Menu = ({ originalElement = '' }: Props) => {
         () => {
             if (!originalElement.length) return;
             const parsedMenuElement = parseMenuHTML(originalElement);
+            console.log(parsedMenuElement);
 
             return parsedMenuElement;
         },

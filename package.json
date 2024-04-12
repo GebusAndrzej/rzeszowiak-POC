@@ -10,8 +10,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint --fix . --ext .js,.ts,.tsx",
     "preview": "vite preview",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d dist",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "css-modules:watch": "tcm --watch .",
     "css-modules:generate": "tcm .",
     "css-modules-check:up-to-date-types": "tcm --listDifferent ."
@@ -21,6 +21,7 @@
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
+    "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@tanstack/react-query": "^5.28.6",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",

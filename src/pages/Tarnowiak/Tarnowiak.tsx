@@ -1,37 +1,27 @@
 import { AHttpClient } from '@/http/AxiosAbstract';
+import { QUERY_KEY } from './commom';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
-import {
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import Menu from './components/Menu/Menu';
 
 const Tarnowiak = () => {
-    const [ menuElement, setMenuElement ] = useState<string>();
-
     const { data } = useQuery({
         queryFn: () => AHttpClient.getPage('https://www.tarnowiak.pl/'),
-        queryKey: [ 'tarnowiak' ],
+        queryKey: [ QUERY_KEY.MAIN_PAGE ],
+        refetchOnWindowFocus: false,
     });
 
     const html = useMemo(() => parseHTMLResponse(data), [ data ]);
 
-    useEffect(
-        () => {
-            const menuWrapper = html.querySelector<HTMLDivElement>('.column.leftb');
-            const menuElement = menuWrapper?.querySelector<HTMLDivElement>('.column_box');
-
-            console.log(menuElement);
-
-            setMenuElement(menuElement?.outerHTML);
-        },
+    const menuElement = useMemo(
+        () => html.querySelector<HTMLDivElement>('.column_box')?.outerHTML,
         [ html ],
     );
 
     return (
         <div>
-        Tarnowiak
+            <Menu originalElement={menuElement} />
 
             <div
                 dangerouslySetInnerHTML={{ __html: menuElement || '' }}

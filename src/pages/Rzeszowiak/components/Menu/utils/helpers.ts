@@ -57,7 +57,7 @@ const parseList = (list: HTMLUListElement) => {
     return groups;
 };
 
-export const parseMenuHTML = (html: string) => {
+export const parseMenuHTML = (html: string): TMenuGroup[] => {
     const firstDivSelector = /<div\s+class="menu-left-middle">/gm;
     const menuElements = html
         .replace(firstDivSelector, '')
