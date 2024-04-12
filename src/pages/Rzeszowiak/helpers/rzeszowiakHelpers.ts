@@ -25,11 +25,11 @@ export const constructCategoryUrl = (
         time: TIME['30D'],
     },
 ) => {
-    const [mainUrl, originalQueryString] = url.split('?');
+    const [ mainUrl, originalQueryString ] = url.split('?');
 
     const queryString = originalQueryString
         ? `?${originalQueryString}`
-        : ''
-    
-    return `${mainUrl}${options.page}${options.sort}${options.size}${options.time}${queryString}`
+        : '';
+
+    return `${mainUrl}${options.page}${options.sort}${options.size}${options.time}${queryString}`;
 };

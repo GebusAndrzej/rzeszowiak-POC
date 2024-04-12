@@ -5,7 +5,7 @@ import {
 } from '@/components/ui/collapsible';
 import { TMenuGroup as TMenuGroup } from '../../utils/helpers';
 import MenuItem from '../MenuItem/MenuItem';
-import styles from './MenuGroup.module.css'
+import styles from './MenuGroup.module.css';
 
 type Props = {
     category: TMenuGroup;

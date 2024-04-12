@@ -1,18 +1,16 @@
 import { AHttpClient } from '@/http/AxiosAbstract';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
-import { useQuery } from '@tanstack/react-query';
 import {
     useEffect,
     useMemo,
     useState,
 } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 const Tarnowiak = () => {
     const [ menuElement, setMenuElement ] = useState<string>();
 
-    const {
-        data,
-    } = useQuery({
+    const { data } = useQuery({
         queryFn: () => AHttpClient.getPage('https://www.tarnowiak.pl/'),
         queryKey: [ 'tarnowiak' ],
     });

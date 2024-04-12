@@ -8,9 +8,7 @@ import {
     Routes,
 } from 'react-router-dom';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
-import {
-    useMemo,
-} from 'react';
+import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Menu from './components/Menu/Menu';
 import Page from './components/Page/Page';
@@ -27,14 +25,14 @@ const Rzeszowiak = () => {
     });
 
     const html = useMemo(
-        () => parseHTMLResponse(data), 
-        [ data ]
+        () => parseHTMLResponse(data),
+        [ data ],
     );
 
     const menuElement = useMemo(
         () => html.querySelector<HTMLDivElement>('.menu-left-middle')?.outerHTML,
-        [html]
-    )
+        [ html ],
+    );
 
     return (
         <div className={styles.wrapper}>

@@ -1,49 +1,55 @@
-import { NavLink, useSearchParams } from 'react-router-dom';
+import {
+    NavLink,
+    useSearchParams,
+} from 'react-router-dom';
 import { TMenuItem } from '../../utils/helpers';
 import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
 import { useMemo } from 'react';
-import styles from './MenuItem.module.css'
 import clsx from 'clsx';
+import styles from './MenuItem.module.css';
 
 type Props = {
     item: TMenuItem;
     depth?: number;
 };
 
-const MenuItem = ({ 
-    item,
+const MenuItem = ({
     depth = 0,
+    item,
 }: Props) => {
-    const [params] = useSearchParams()
+    const [ params ] = useSearchParams();
 
     const currentSubpageParam = useMemo(
         () => params.get('r') || '',
-        [params]
-    )
-    
+        [ params ],
+    );
+
     const isGroup = !!item.children?.length;
     const localURL = useMemo(() => constructCategoryUrl(item.url || ''), [ item.url ]);
-    
+
     const constructedUrlParam = useMemo(
         () => localURL.split('r=')[1],
-        [localURL]
-    )
+        [ localURL ],
+    );
 
     const isThisSubpageActive = useMemo(
         () => constructedUrlParam
             ? constructedUrlParam?.includes(currentSubpageParam)
             : true,
-        [constructedUrlParam, currentSubpageParam]
-    )
+        [
+            constructedUrlParam,
+            currentSubpageParam,
+        ],
+    );
 
     return isGroup
         ? (<>
-            <NavLink 
-                to={localURL}
+            <NavLink
                 className={({ isActive }) => clsx(
                     styles.menuItem,
-                    isActive && styles.active
+                    isActive && styles.active,
                 )}
+                to={localURL}
             >
                 {item.text}
                 ({item.count})
@@ -51,10 +57,10 @@ const MenuItem = ({
 
             <div className={styles.childrenContainer}>
                 {item.children?.map(item => (
-                    <MenuItem 
-                        item={item} 
-                        key={item.url} 
+                    <MenuItem
                         depth={depth + 1}
+                        item={item}
+                        key={item.url}
                     />
                 ))}
             </div>
@@ -63,7 +69,7 @@ const MenuItem = ({
             <NavLink
                 className={({ isActive }) => clsx(
                     styles.menuItem,
-                    isActive && isThisSubpageActive && styles.active
+                    isActive && isThisSubpageActive && styles.active,
                 )}
                 key={item.text}
                 to={localURL}

@@ -14,7 +14,7 @@ const ListOfferWrapper = ({ offer }: Props) => {
     const anchorData = useMemo(
         () => {
             const anchorElement = offer.querySelector('a') as HTMLAnchorElement;
-            
+
             const href = anchorElement.getAttribute('href') || '';
             const [ , ...titleArr ] = anchorElement.textContent?.split('.') as string[];
             const numbersInLink = href.match(/\d+/g);

@@ -1,16 +1,19 @@
-import { parseMenuHTML } from './utils/helpers';
-import { useMemo, useState } from 'react';
-import MenuGroup from './components/MenuGroup/MenuGroup';
-import styles from './Menu.module.css'
 import { ArrowLeftIcon } from 'lucide-react';
+import { parseMenuHTML } from './utils/helpers';
+import {
+    useMemo,
+    useState,
+} from 'react';
+import MenuGroup from './components/MenuGroup/MenuGroup';
 import clsx from 'clsx';
+import styles from './Menu.module.css';
 
 type Props = {
     originalElement?: string;
 };
 
 const Menu = ({ originalElement = '' }: Props) => {
-    const [isCollapsed, setIsCollapsed] = useState(false)
+    const [ isCollapsed, setIsCollapsed ] = useState(false);
 
     const parsedMenu = useMemo(
         () => {
@@ -23,14 +26,17 @@ const Menu = ({ originalElement = '' }: Props) => {
     );
 
     return (
-        <div className={clsx(
-            styles.wrapper,
-            isCollapsed && styles.collapsed
-        )}>
-            <div className={styles.pageLogo}
+        <div
+            className={clsx(
+                styles.wrapper,
+                isCollapsed && styles.collapsed,
+            )}
+        >
+            <div
+                className={styles.pageLogo}
                 onClick={() => setIsCollapsed(prev => !prev)}
             >
-                <ArrowLeftIcon/>
+                <ArrowLeftIcon />
                 rzeszowiak
             </div>
 

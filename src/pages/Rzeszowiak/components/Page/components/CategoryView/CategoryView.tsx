@@ -1,18 +1,25 @@
-import { useCallback, useMemo } from 'react';
-import ListOfferWrapper from './components/ListOffer/ListOfferWrapper';
-import styles from './CategoryView.module.css';
-import Pagination from '@/components/Pagination/Pagination';
-import useRzeszowiakCategoryPageController from './hooks/useRzeszowiakCategoryPageController';
-import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
 import { APP_ROUTE } from 'app/appConsts';
+import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
+import {
+    useCallback,
+    useMemo,
+} from 'react';
 import ListFilters from './components/ListFilters/ListFilters';
+import ListOfferWrapper from './components/ListOffer/ListOfferWrapper';
+import Pagination from '@/components/Pagination/Pagination';
+import styles from './CategoryView.module.css';
+import useRzeszowiakCategoryPageController from './hooks/useRzeszowiakCategoryPageController';
 
 type Props = {
     body: HTMLElement;
 };
 
 const CategoryView = ({ body }: Props) => {
-    const {queryParamsUrl,slugUrlParams,slugWithCategory} = useRzeszowiakCategoryPageController();
+    const {
+        queryParamsUrl,
+        slugUrlParams,
+        slugWithCategory,
+    } = useRzeszowiakCategoryPageController();
 
     const content = useMemo(
         () => body.querySelector<HTMLDivElement>('#content-center'),
@@ -47,46 +54,50 @@ const CategoryView = ({ body }: Props) => {
         () => {
             const textValue = content?.querySelector('#oDnns')?.textContent;
             const s = textValue?.replace('Strona', '')
-                .split("z");
+                .split('z');
 
             return {
                 current: +(s?.[0] || 0),
                 max: +(s?.[1] || 0),
-            }
+            };
         },
-        [content]
-    )
+        [ content ],
+    );
 
     const generatePaginationUrl = useCallback(
         (pageNumber: string) => {
-            const page = `${pageNumber}`.padStart(3, '0')
-            
+            const page = `${pageNumber}`.padStart(3, '0');
+
             const categoryUrl = constructCategoryUrl(
                 slugWithCategory,
                 {
-                   page,
-                   size: slugUrlParams.size,
-                   sort: slugUrlParams.sort,
-                   time: slugUrlParams.time
-                }
+                    page,
+                    size: slugUrlParams.size,
+                    sort: slugUrlParams.sort,
+                    time: slugUrlParams.time,
+                },
             );
-            
-            return `/${APP_ROUTE.RZESZOWIAK}/${categoryUrl}${queryParamsUrl}`
+
+            return `/${APP_ROUTE.RZESZOWIAK}/${categoryUrl}${queryParamsUrl}`;
         },
-        [queryParamsUrl,slugUrlParams,slugWithCategory]
-    )
+        [
+            queryParamsUrl,
+            slugUrlParams,
+            slugWithCategory,
+        ],
+    );
 
     const scrollTop = useCallback(
         () => window.scrollTo({
-            top: 0,
             behavior: 'smooth',
+            top: 0,
         }),
-        []
-    )
+        [],
+    );
 
     return content && (
         <>
-            <ListFilters 
+            <ListFilters
                 pageInfo={pageInfo}
                 paginationLinkGenerator={generatePaginationUrl}
             />
@@ -106,10 +117,10 @@ const CategoryView = ({ body }: Props) => {
                 </div>
 
                 <Pagination
-                    currentPage={pageInfo.current} 
-                    pages={pageInfo.max}
-                    onPageChange={scrollTop}
+                    currentPage={pageInfo.current}
                     linkGenerator={generatePaginationUrl}
+                    onPageChange={scrollTop}
+                    pages={pageInfo.max}
                 />
             </div>
         </>

@@ -1,47 +1,47 @@
-import { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const useQueryParams = () => {
-    const [searchParams] = useSearchParams();
+    const [ searchParams ] = useSearchParams();
 
     const queryParamsObject = useMemo(
         () => {
-            const obj: Record<string, string> = {}
+            const obj: Record<string, string> = {};
 
             for (const entry of searchParams.entries()) {
-                obj[entry[0]] = entry[1]
+                obj[entry[0]] = entry[1];
             }
 
-            return obj
+            return obj;
         },
-        [searchParams]
-    )
+        [ searchParams ],
+    );
 
     const queryParamsArray = useMemo(
         () => {
             const params = [];
 
             for (const entry of searchParams.entries()) {
-                params.push(`${entry[0]}=${entry[1]}`)
+                params.push(`${entry[0]}=${entry[1]}`);
             }
 
             return params;
         },
-        [searchParams]
-    )
+        [ searchParams ],
+    );
 
     const queryParamsUrl = useMemo(
-        () =>  queryParamsArray.length
-                ? `?${queryParamsArray.join('&')}`
-                : '',
-        [queryParamsArray]
-    )
-    
-    return {
-        queryParamsObject,
-        queryParamsArray,
-        queryParamsUrl,
-    }
-}
+        () => queryParamsArray.length
+            ? `?${queryParamsArray.join('&')}`
+            : '',
+        [ queryParamsArray ],
+    );
 
-export default useQueryParams
+    return {
+        queryParamsArray,
+        queryParamsObject,
+        queryParamsUrl,
+    };
+};
+
+export default useQueryParams;

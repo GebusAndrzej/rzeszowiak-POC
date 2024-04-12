@@ -15,7 +15,7 @@ const numberRegex = /\d+/g;
 
 const Page = () => {
     const { slug } = useParams();
-    const {queryParamsUrl} = useQueryParams()
+    const { queryParamsUrl } = useQueryParams();
 
     const pageType = useMemo(
         () => {
