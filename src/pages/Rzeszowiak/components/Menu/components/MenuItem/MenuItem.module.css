@@ -28,9 +28,10 @@
 }
 
 .menuLabel {
+    flex: 1;
     display: flex;
+}
 
-    .count {
-        margin-left: auto;
-    }
+.count {
+    margin-left: auto;
 }

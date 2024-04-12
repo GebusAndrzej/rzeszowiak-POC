@@ -1,21 +1,16 @@
 import { ArrowLeftIcon } from 'lucide-react';
-import { TMenuGroup, TMenuItem } from './Menu.d';
+import { TMenuGroup } from './Menu.d';
 import styles from './Menu.module.css';
 import clsx from 'clsx';
 import MenuGroup from './components/MenuGroup/MenuGroup';
 import { ComponentType } from 'react';
+import { MenuItemBaseProps } from './components/MenuItemBase/MenuItemBase';
 
 type Props = {
     items: TMenuGroup[];
     siteName: string;
     urlTransformer?: (url?: string) => string;
-    // Item?: ComponentType<{
-    //   item: TMenuItem;
-    //   urlTransformer?: (url?: string) => string;
-    // }>
-    Item?: ComponentType<{
-        item: TMenuItem
-    }>;
+    Item?: ComponentType<MenuItemBaseProps>;
 }
 
 const Menu = ({

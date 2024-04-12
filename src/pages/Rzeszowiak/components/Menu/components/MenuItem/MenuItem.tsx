@@ -2,11 +2,11 @@ import {
     NavLink,
     useSearchParams,
 } from 'react-router-dom';
-import { TMenuItem } from '../../utils/helpers';
 import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import styles from './MenuItem.module.css';
+import { TMenuItem } from '@/components/Menu/Menu.d';
 
 type Props = {
     item: TMenuItem;
@@ -50,8 +50,15 @@ const MenuItem = ({
                 )}
                 to={localURL}
             >
-                {item.text}
-                ({item.count})
+                <span>
+                    {item.text}
+                </span>
+
+                {!!item.count && (
+                    <span className={styles.count}>
+                        ({item.count})
+                    </span>
+                )}
             </NavLink>
 
             <div className={styles.childrenContainer}>
@@ -73,11 +80,15 @@ const MenuItem = ({
                 to={localURL}
             >
                 <div className={styles.menuLabel}>
-                    {item.text}
-
-                    <span className={styles.count}>
-                        ({item.count})
+                    <span>
+                        {item.text}
                     </span>
+
+                    {!!item.count && (
+                        <span className={styles.count}>
+                            ({item.count})
+                        </span>
+                    )}
                 </div>
             </NavLink>
         );

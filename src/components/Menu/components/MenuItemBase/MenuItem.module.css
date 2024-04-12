@@ -28,6 +28,7 @@
 }
 
 .menuLabel {
+    flex: 1;
     display: flex;
 
     .count {

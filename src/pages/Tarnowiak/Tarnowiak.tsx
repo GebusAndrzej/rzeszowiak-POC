@@ -3,7 +3,9 @@ import { QUERY_KEY } from './commom';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import MenuWrapper from './components/Menu/Menu';
+import MenuWrapper from './components/Menu/MenuWrapper';
+import { Route, Routes } from 'react-router-dom';
+import styles from './Tarnowiak.module.css'
 
 const Tarnowiak = () => {
     const { data } = useQuery({
@@ -20,7 +22,33 @@ const Tarnowiak = () => {
     );
 
     return (
-        <MenuWrapper originalElement={menuElement} />
+        <div className={styles.wrapper}>
+            <MenuWrapper originalElement={menuElement} />
+
+            <div className={styles.page}>
+                <Routes>
+                    <Route
+                        element={"index"}
+                        index
+                    />
+
+                    <Route
+                        element={'list'}
+                        path={`/ogloszenia/*`}
+                    />
+
+                    <Route
+                        element={'single'}
+                        path={`/ogloszenie/:announcementId/:announcementText`}
+                    />
+
+                    <Route
+                        element={'szukaj'}
+                        path={`/szukaj/`}
+                    />
+                </Routes>
+            </div>
+        </div>
     );
 };
 

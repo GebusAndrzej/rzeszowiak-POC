@@ -4,7 +4,7 @@ import styles from './MenuItem.module.css'
 import clsx from 'clsx'
 import { useMemo } from 'react'
 
-type Props = {
+export type MenuItemBaseProps = {
     item: TMenuItem;
     urlTransformer?: (url?: string) => string;
 }
@@ -12,7 +12,7 @@ type Props = {
 const MenuItemBase = ({
     item, 
     urlTransformer,
-}: Props) => {
+}: MenuItemBaseProps) => {
     const isGroup = !!item.children?.length;
 
     const localUrl = useMemo(
@@ -60,7 +60,9 @@ const MenuItemBase = ({
                 to={localUrl || '#'}
             >
                 <div className={styles.menuLabel}>
-                    {item.text}
+                    <span>
+                        {item.text}
+                    </span>
 
                     {!!item.count && (
                         <span className={styles.count}>

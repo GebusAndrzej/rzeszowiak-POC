@@ -3,26 +3,19 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from '@/components/ui/collapsible';
-import { TMenuGroup, TMenuItem } from '../../Menu.d';
-import MenuItemBase from '../MenuItemBase/MenuItemBase';
+import { TMenuGroup } from '../../Menu.d';
+import MenuItemBase, { MenuItemBaseProps } from '../MenuItemBase/MenuItemBase';
 import styles from './MenuGroup.module.css'
 import { ComponentType } from 'react';
 
 type Props = {
     category: TMenuGroup;
     urlTransformer?: (url?: string) => string
-    // Item?: ComponentType<{
-    //     item: TMenuItem;
-    //     urlTransformer?: (url?: string) => string;
-    //   }>
-    Item?: ComponentType<{
-        item: TMenuItem
-    }>;
+    Item?: ComponentType<MenuItemBaseProps>;
 };
 
 const MenuGroup = ({ 
     category,
-    urlTransformer,
     Item = MenuItemBase,
 }: Props) => {
 
@@ -38,20 +31,6 @@ const MenuGroup = ({
                         item={menuItem}
                         key={menuItem.url}
                     />
-                    // Item
-                    //     ? (
-                    //         <Item
-                    //             item={menuItem}
-                    //             key={menuItem.url}
-                    //         />
-                    //     )
-                    //     : (
-                    //         <MenuItemBase
-                    //             item={menuItem}
-                    //             key={menuItem.url}
-                    //             urlTransformer={urlTransformer}
-                    //         />
-                    //     )
                 ))}
             </CollapsibleContent>
         </Collapsible>

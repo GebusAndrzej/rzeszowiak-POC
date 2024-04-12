@@ -29,7 +29,7 @@ const Page = () => {
         [ slug ],
     );
 
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryFn: () => AHttpClient.getPage(`${SITE_URL}/${slug}${queryParamsUrl}`),
         queryKey: [
             QUERY_KEY.PAGE,
@@ -43,7 +43,13 @@ const Page = () => {
 
     return (
         <div>
-            {slug}
+            {isLoading && (
+                <div>
+                    Loading...
+                </div>
+            )}
+
+            {/* {slug} */}
 
             {pageType.list && (
                 <CategoryView

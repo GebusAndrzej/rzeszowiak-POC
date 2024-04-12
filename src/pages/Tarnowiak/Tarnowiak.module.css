@@ -1,0 +1,11 @@
+.wrapper {
+    display: grid;
+    flex: 1;
+    height: 100%;
+    grid-template-areas: "menu page";
+    grid-template-columns: 200px 1fr;
+}
+
+.page {
+    grid-area: page;
+}

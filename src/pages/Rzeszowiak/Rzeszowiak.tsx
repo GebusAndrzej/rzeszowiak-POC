@@ -10,9 +10,9 @@ import {
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import MenuWrapper from './components/Menu/Menu';
 import Page from './components/Page/Page';
 import styles from './Rzeszowiak.module.css';
+import MenuWrapper from './components/Menu/MenuWrapper';
 
 const Rzeszowiak = () => {
     const {

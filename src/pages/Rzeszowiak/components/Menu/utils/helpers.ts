@@ -1,16 +1,5 @@
+import { TMenuGroup, TMenuItem } from '@/components/Menu/Menu.d';
 import { createElementsFromHTML } from '@/lib/helpers/HTMLhelpers';
-
-export type TMenuGroup = {
-    categoryName: string | null;
-    items: TMenuItem[];
-};
-
-export type TMenuItem = {
-    url?: string | undefined;
-    text: any;
-    count: string | null;
-    children?: TMenuItem[];
-};
 
 const getAnchorData = (element: HTMLAnchorElement): TMenuItem => {
     const children = element.childNodes;

@@ -1,16 +1,5 @@
+import { TMenuGroup, TMenuItem } from '@/components/Menu/Menu.d';
 import { createElementFromHTML } from '@/lib/helpers/HTMLhelpers';
-
-export type TMenuGroup = {
-    categoryName: string | null;
-    items: TMenuItem[];
-};
-
-export type TMenuItem = {
-    url?: string | undefined;
-    text: string;
-    count: string | null;
-    children?: TMenuItem[];
-};
 
 const getLinkData = (html: string): TMenuItem => {
     const element = createElementFromHTML(`<div>${html}</div>`) as HTMLDivElement;
