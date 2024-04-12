@@ -6,7 +6,7 @@ export type TMenuGroup = {
 };
 
 export type TMenuItem = {
-    url: string | undefined;
+    url?: string | undefined;
     text: any;
     count: string | null;
     children?: TMenuItem[];

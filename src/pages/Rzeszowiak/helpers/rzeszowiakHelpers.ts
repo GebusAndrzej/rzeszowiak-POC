@@ -12,7 +12,7 @@ import {
 //            |||= strona
 
 export const constructCategoryUrl = (
-    url: string,
+    url: string = '',
     options: {
         page?: string;
         sort?: SORT | string;

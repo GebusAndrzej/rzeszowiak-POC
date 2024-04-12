@@ -10,7 +10,7 @@ import {
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Menu from './components/Menu/Menu';
+import MenuWrapper from './components/Menu/Menu';
 import Page from './components/Page/Page';
 import styles from './Rzeszowiak.module.css';
 
@@ -36,7 +36,7 @@ const Rzeszowiak = () => {
 
     return (
         <div className={styles.wrapper}>
-            <Menu originalElement={menuElement} />
+            <MenuWrapper originalElement={menuElement} />
 
             <div className={styles.page}>
                 {isLoading && (

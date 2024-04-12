@@ -10,11 +10,10 @@ import styles from './MenuItem.module.css';
 
 type Props = {
     item: TMenuItem;
-    depth?: number;
+    urlTransformer?: (url?: string) => string;
 };
 
 const MenuItem = ({
-    depth = 0,
     item,
 }: Props) => {
     const [ params ] = useSearchParams();
@@ -58,7 +57,6 @@ const MenuItem = ({
             <div className={styles.childrenContainer}>
                 {item.children?.map(item => (
                     <MenuItem
-                        depth={depth + 1}
                         item={item}
                         key={item.url}
                     />

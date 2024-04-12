@@ -3,7 +3,7 @@ import { QUERY_KEY } from './commom';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Menu from './components/Menu/Menu';
+import MenuWrapper from './components/Menu/Menu';
 
 const Tarnowiak = () => {
     const { data } = useQuery({
@@ -20,13 +20,7 @@ const Tarnowiak = () => {
     );
 
     return (
-        <div>
-            <Menu originalElement={menuElement} />
-
-            <div
-                dangerouslySetInnerHTML={{ __html: menuElement || '' }}
-            />
-        </div>
+        <MenuWrapper originalElement={menuElement} />
     );
 };
 
