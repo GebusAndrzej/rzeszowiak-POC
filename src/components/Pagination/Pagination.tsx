@@ -66,8 +66,8 @@ const Pagination = ({
                         <PaginationItem>
                             <PaginationPrevious
                                 href={currentPage === 1
-                                    ? numbers[0].href
-                                    : numbers[currentPage - 2].href
+                                    ? numbers[0]?.href
+                                    : numbers[currentPage - 2]?.href
                                 }
                                 onClick={() => currentPage === 1
                                     ? onPageChange?.(1)
@@ -104,8 +104,8 @@ const Pagination = ({
                         <PaginationItem>
                             <PaginationNext
                                 href={currentPage < pages
-                                    ? numbers[currentPage].href
-                                    : numbers[pages - 1].href
+                                    ? numbers[currentPage]?.href
+                                    : numbers[pages - 1]?.href
                                 }
                                 onClick={() => currentPage < pages
                                     ? onPageChange?.(currentPage + 1)

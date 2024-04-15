@@ -5,4 +5,8 @@ export const pages = [
         name: 'Rzeszowiak',
         url: APP_ROUTE.RZESZOWIAK,
     },
+    {
+        name: 'Tarnowiak',
+        url: APP_ROUTE.TARNOWIAK,
+    },
 ];

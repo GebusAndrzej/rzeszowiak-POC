@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import MenuWrapper from './components/Menu/MenuWrapper';
 import { Route, Routes } from 'react-router-dom';
 import styles from './Tarnowiak.module.css'
+import OffersList from './components/OffersList/OffersList';
 
 const Tarnowiak = () => {
     const { data } = useQuery({
@@ -33,7 +34,7 @@ const Tarnowiak = () => {
                     />
 
                     <Route
-                        element={'list'}
+                        element={<OffersList />}
                         path={`/ogloszenia/*`}
                     />
 
