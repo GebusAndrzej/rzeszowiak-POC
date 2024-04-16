@@ -30,7 +30,7 @@ const Page = () => {
     );
 
     const { data, isLoading } = useQuery({
-        queryFn: () => AHttpClient.getPage(`${SITE_URL}/${slug}${queryParamsUrl}`),
+        queryFn: () => AHttpClient.getPage(`${SITE_URL}/${slug}${queryParamsUrl}`, "ISO8859_2"),
         queryKey: [
             QUERY_KEY.PAGE,
             slug,

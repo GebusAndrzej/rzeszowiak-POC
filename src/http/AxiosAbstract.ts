@@ -2,7 +2,12 @@ import axiosInstance from './AxiosInstance';
 
 export abstract class AHttpClient {
 
-    public static getPage = (url: string) => axiosInstance
-        .get<string>(`proxy?q=${url}`)
-        .then(response => response.data);
+    public static getPage = (url: string, charset?: string) => {
+        const queryString = charset
+            ? `&fromCharset=${charset}`
+            : ''
+        return axiosInstance
+            .get<string>(`proxy?q=${url}${queryString}`)
+            .then(response => response.data);
+    }
 }

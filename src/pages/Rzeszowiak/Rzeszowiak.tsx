@@ -19,7 +19,7 @@ const Rzeszowiak = () => {
         data,
         isLoading,
     } = useQuery({
-        queryFn: () => AHttpClient.getPage(SITE_URL),
+        queryFn: () => AHttpClient.getPage(SITE_URL, "ISO8859_2"),
         queryKey: [ QUERY_KEY.MAIN_PAGE ],
         refetchOnWindowFocus: false,
     });
