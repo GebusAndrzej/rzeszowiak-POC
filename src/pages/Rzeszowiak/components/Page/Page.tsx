@@ -8,6 +8,9 @@ import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import CategoryView from './components/CategoryView/CategoryView';
+import DataLoader from '@/components/DataLoader/DataLoader';
+import ListViewSkeleton from '@/components/Skeletons/ListViewSkeleton/ListViewSkeleton';
+import OfferDetailsSkeleton from '@/components/Skeletons/OfferDetailsSkeleton/OfferDetailsSkeleton';
 import OfferWrapper from './components/OfferWrapper/OfferWrapper';
 import useQueryParams from '@/lib/hooks/useQueryParams';
 
@@ -31,7 +34,7 @@ const Page = () => {
 
     const {
         data,
-        isLoading,
+        ...queryData
     } = useQuery({
         queryFn: () => AHttpClient.GetPagePost({
             fromCharset: "ISO8859_2",
@@ -49,26 +52,28 @@ const Page = () => {
 
     return (
         <div>
-            {isLoading && (
-                <div>
-                    Loading...
-                </div>
-            )}
-
-            {/* {slug} */}
-
             {pageType.list && (
-                <CategoryView
-                    body={html.body}
-                    key={slug}
-                />
+                <DataLoader
+                    {...queryData}
+                    skeleton={<ListViewSkeleton />}
+                >
+                    <CategoryView
+                        body={html.body}
+                        key={slug}
+                    />
+                </DataLoader>
             )}
 
             {pageType.offer && (
-                <OfferWrapper
-                    body={html.body}
-                    key={slug}
-                />
+                <DataLoader
+                    {...queryData}
+                    skeleton={<OfferDetailsSkeleton />}
+                >
+                    <OfferWrapper
+                        body={html.body}
+                        key={slug}
+                    />
+                </DataLoader>
             )}
         </div>
     );

@@ -1,0 +1,14 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    position: relative;
+    padding: 16px;
+}
+
+.loaderContainer {
+    position: absolute;
+    left: 50%;
+    top: min(50vh, 50%);
+    transform: translate(-50% -50%);
+}

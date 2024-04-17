@@ -11,7 +11,9 @@ import {
 } from "react";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import DataLoader from "@/components/DataLoader/DataLoader";
 import ListOfferWrapper from "./components/ListOfferWrapper/ListOfferWrapper";
+import ListViewSkeleton from "@/components/Skeletons/ListViewSkeleton/ListViewSkeleton";
 import Pagination from "@/components/Pagination/Pagination";
 import styles from './OffersList.module.css';
 
@@ -25,7 +27,7 @@ const OffersList = () => {
 
     const {
         data,
-        isLoading,
+        ...queryData
     } = useQuery({
         queryFn: () => AHttpClient.GetPagePost({ q: `${SITE_URL}/${page}` }),
         queryKey: [
@@ -108,30 +110,31 @@ const OffersList = () => {
 
     return (
         <div>
-            {isLoading && (
-                <span>Loading...</span>
-            )}
+            <DataLoader
+                {...queryData}
+                skeleton={<ListViewSkeleton />}
+            >
+                <div className={styles.wrapper}>
 
-            <div className={styles.wrapper}>
-
-                <div className={styles.offerList}>
-                    {announcementsList.map((announcement, index) => (
-                        <ListOfferWrapper
-                            key={index}
-                            offer={announcement}
-                        />
-                    ))}
+                    <div className={styles.offerList}>
+                        {announcementsList.map((announcement, index) => (
+                            <ListOfferWrapper
+                                key={index}
+                                offer={announcement}
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
 
-            {paginationData.current && (
-                <Pagination
-                    currentPage={paginationData.current}
-                    linkGenerator={paginationData.getLink}
-                    onPageChange={scrollTop}
-                    pages={paginationData.max}
-                />
-            )}
+                {paginationData.current && (
+                    <Pagination
+                        currentPage={paginationData.current}
+                        linkGenerator={paginationData.getLink}
+                        onPageChange={scrollTop}
+                        pages={paginationData.max}
+                    />
+                )}
+            </DataLoader>
         </div>
     );
 };
