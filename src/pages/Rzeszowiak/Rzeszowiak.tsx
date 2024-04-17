@@ -10,16 +10,19 @@ import {
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import MenuWrapper from './components/Menu/MenuWrapper';
 import Page from './components/Page/Page';
 import styles from './Rzeszowiak.module.css';
-import MenuWrapper from './components/Menu/MenuWrapper';
 
 const Rzeszowiak = () => {
     const {
         data,
         isLoading,
     } = useQuery({
-        queryFn: () => AHttpClient.getPage(SITE_URL, "ISO8859_2"),
+        queryFn: () => AHttpClient.GetPagePost({
+            fromCharset: "ISO8859_2",
+            q: SITE_URL,
+        }),
         queryKey: [ QUERY_KEY.MAIN_PAGE ],
         refetchOnWindowFocus: false,
     });

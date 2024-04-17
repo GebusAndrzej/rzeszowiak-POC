@@ -170,7 +170,7 @@ module.exports = {
         },
     ],
     "quotes": [
-        "error",
+        "off",
         "single",
         {
             "allowTemplateLiterals": true,
@@ -360,7 +360,7 @@ module.exports = {
             ],
             "quotes": 0,
             "@typescript-eslint/quotes": [
-                "error",
+                "off",
                 "single",
             ],
         },

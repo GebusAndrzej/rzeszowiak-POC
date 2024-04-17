@@ -1,16 +1,20 @@
 import { AHttpClient } from '@/http/AxiosAbstract';
 import { QUERY_KEY } from './commom';
+import {
+    Route,
+    Routes,
+} from 'react-router-dom';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import MenuWrapper from './components/Menu/MenuWrapper';
-import { Route, Routes } from 'react-router-dom';
-import styles from './Tarnowiak.module.css'
+import OfferWrapper from './components/OfferWrapper/OfferWrapper';
 import OffersList from './components/OffersList/OffersList';
+import styles from './Tarnowiak.module.css';
 
 const Tarnowiak = () => {
     const { data } = useQuery({
-        queryFn: () => AHttpClient.getPage('https://www.tarnowiak.pl/'),
+        queryFn: () => AHttpClient.GetPagePost({ q: 'https://www.tarnowiak.pl/' }),
         queryKey: [ QUERY_KEY.MAIN_PAGE ],
         refetchOnWindowFocus: false,
     });
@@ -39,7 +43,7 @@ const Tarnowiak = () => {
                     />
 
                     <Route
-                        element={'single'}
+                        element={<OfferWrapper />}
                         path={`/ogloszenie/:announcementId/:announcementText`}
                     />
 

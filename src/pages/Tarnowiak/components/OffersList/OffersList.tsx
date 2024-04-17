@@ -1,46 +1,55 @@
-import { useLocation } from "react-router-dom";
-import { QUERY_KEY, SITE_URL } from "../../commom";
-import { useCallback, useMemo } from "react";
-import { APP_ROUTE } from "app/appConsts";
-import { useQuery } from "@tanstack/react-query";
 import { AHttpClient } from "@/http/AxiosAbstract";
+import { APP_ROUTE } from "app/appConsts";
+import {
+    QUERY_KEY,
+    SITE_URL,
+} from "../../commom";
 import { parseHTMLResponse } from "@/lib/helpers/HTMLhelpers";
-import styles from './OffersList.module.css'
+import {
+    useCallback,
+    useMemo,
+} from "react";
+import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import ListOfferWrapper from "./components/ListOfferWrapper/ListOfferWrapper";
 import Pagination from "@/components/Pagination/Pagination";
+import styles from './OffersList.module.css';
 
 const OffersList = () => {
-    const location = useLocation()
+    const location = useLocation();
 
     const page = useMemo(
         () => location.pathname.replace(`/${APP_ROUTE.TARNOWIAK}/`, ''),
-        [location.pathname]
-    )
+        [ location.pathname ],
+    );
 
-    const { data, isLoading } = useQuery({
-        queryFn: () => AHttpClient.getPage(`${SITE_URL}/${page}`),
+    const {
+        data,
+        isLoading,
+    } = useQuery({
+        queryFn: () => AHttpClient.GetPagePost({ q: `${SITE_URL}/${page}` }),
         queryKey: [
             QUERY_KEY.PAGE,
-            page
+            page,
         ],
         refetchOnWindowFocus: false,
     });
 
-    const html = useMemo(() => parseHTMLResponse(data), [data]);
+    const html = useMemo(() => parseHTMLResponse(data), [ data ]);
 
     const contentWrapper = useMemo(
         () => html.querySelector<HTMLDivElement>('#content'),
-        [html]
-    )
+        [ html ],
+    );
 
     const announcementsList = useMemo(
         () => {
             const ret: Element[] = [];
-  
+
             if (!contentWrapper) return ret;
-            
-            const promoOffers = contentWrapper.querySelectorAll('.box_content_featured')
-            const normalOffers = contentWrapper.querySelectorAll('.box_content_plain')
+
+            const promoOffers = contentWrapper.querySelectorAll('.box_content_featured');
+            const normalOffers = contentWrapper.querySelectorAll('.box_content_plain');
 
             if (promoOffers?.length) {
                 ret.push(...promoOffers);
@@ -52,20 +61,20 @@ const OffersList = () => {
 
             return ret;
         },
-        [contentWrapper]
-    )
+        [ contentWrapper ],
+    );
 
     const paginationData = useMemo(
         () => {
             let length = 0;
-            const map: Record<string,string> = {}
+            const map: Record<string, string> = {};
 
-            const wrapper = contentWrapper?.querySelector('#paging')
-            const anchors = wrapper?.querySelectorAll<HTMLAnchorElement>('a') || []
-            
-            const current = Number(wrapper?.querySelector('.current')?.textContent)
+            const wrapper = contentWrapper?.querySelector('#paging');
+            const anchors = wrapper?.querySelectorAll<HTMLAnchorElement>('a') || [];
 
-            for (let i = 0; i< anchors?.length; i++) {
+            const current = Number(wrapper?.querySelector('.current')?.textContent);
+
+            for (let i = 0; i < anchors?.length; i++) {
                 if (anchors[i].nextSibling?.nodeType === 3 && anchors[i].previousSibling?.nodeType === 3) {
                     continue;
                 }
@@ -74,20 +83,20 @@ const OffersList = () => {
                     continue;
                 }
 
-                const pageNo = Number(anchors[i]?.textContent) || ''
-                const href = anchors[i]?.getAttribute('href') || ''
+                const pageNo = Number(anchors[i]?.textContent) || '';
+                const href = anchors[i]?.getAttribute('href') || '';
                 map[pageNo] = `/${APP_ROUTE.TARNOWIAK}/${href}`;
                 length++;
             }
 
             return {
-                current: current,
+                current,
+                getLink: (pageNumber: string) => map[pageNumber],
                 max: length,
-                getLink: (page: string) => map[page]
-            }
+            };
         },
-        [contentWrapper]
-    )
+        [ contentWrapper ],
+    );
 
     const scrollTop = useCallback(
         () => window.scrollTo({
@@ -124,7 +133,7 @@ const OffersList = () => {
                 />
             )}
         </div>
-    )
-}
+    );
+};
 
-export default OffersList
+export default OffersList;

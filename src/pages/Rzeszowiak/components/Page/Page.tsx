@@ -29,8 +29,14 @@ const Page = () => {
         [ slug ],
     );
 
-    const { data, isLoading } = useQuery({
-        queryFn: () => AHttpClient.getPage(`${SITE_URL}/${slug}${queryParamsUrl}`, "ISO8859_2"),
+    const {
+        data,
+        isLoading,
+    } = useQuery({
+        queryFn: () => AHttpClient.GetPagePost({
+            fromCharset: "ISO8859_2",
+            q: `${SITE_URL}/${slug}${queryParamsUrl}`,
+        }),
         queryKey: [
             QUERY_KEY.PAGE,
             slug,
