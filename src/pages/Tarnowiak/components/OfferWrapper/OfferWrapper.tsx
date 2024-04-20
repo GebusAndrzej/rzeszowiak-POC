@@ -5,7 +5,7 @@ import {
     SITE_URL,
 } from "../../commom";
 import { parseHTMLResponse } from "@/lib/helpers/HTMLhelpers";
-import { processBody } from "./helpers";
+// import { processBody } from "./helpers";
 import { useLocation } from "react-router-dom";
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -34,15 +34,15 @@ const OfferWrapper = () => {
         [ html ],
     );
 
-    const contentData = useMemo(
-        () => processBody(content),
-        [ content ],
-    );
+    // const contentData = useMemo(
+    //     () => processBody(content),
+    //     [ content ],
+    // );
 
     return (
         <div
             dangerouslySetInnerHTML={{
-                __html: content?.outerHTML,
+                __html: content?.outerHTML || '',
             }}
         />
     );

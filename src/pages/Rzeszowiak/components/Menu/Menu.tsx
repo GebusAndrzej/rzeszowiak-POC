@@ -1,6 +1,6 @@
+import MenuGroup from '@/components/Menu/components/MenuGroup/MenuGroup';
 import { parseMenuHTML } from './utils/helpers';
 import { useMemo } from 'react';
-import MenuGroup from './components/MenuGroup/MenuGroup';
 
 type Props = {
     originalElement?: string;

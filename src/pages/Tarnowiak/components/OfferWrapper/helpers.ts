@@ -5,6 +5,8 @@ export const processBody = (element: HTMLElement | null) => {
 
     const description = element?.querySelector('h2');
 
+    console.log(title,contents,description)
+
     return {
 
     };

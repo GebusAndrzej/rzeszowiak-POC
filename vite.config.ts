@@ -19,4 +19,8 @@ export default defineConfig({
     resolve: {
         alias: [ { find: '@', replacement: '/src' } ],
     },
+    build: {
+        minify: 'terser',
+        target: ['ES6', 'edge88', 'firefox78', 'chrome87', 'safari12']
+    }
 });
