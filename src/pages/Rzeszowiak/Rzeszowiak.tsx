@@ -12,7 +12,7 @@ import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import MenuWrapper from './components/Menu/MenuWrapper';
 import Page from './components/Page/Page';
-import styles from './Rzeszowiak.module.css';
+import SiteWrapper from '@/components/SiteWrapper/SiteWrapper';
 
 const Rzeszowiak = () => {
     const {
@@ -38,27 +38,23 @@ const Rzeszowiak = () => {
     );
 
     return (
-        <div className={styles.wrapper}>
-            <MenuWrapper originalElement={menuElement} />
+        <SiteWrapper menuElement={<MenuWrapper originalElement={menuElement} />}>
+            {isLoading && (
+                'Loading...'
+            )}
 
-            <div className={styles.page}>
-                {isLoading && (
-                    'Loading...'
-                )}
-
-                <Routes>
-                    <Route
-                        element={'index'}
-                        index
+            <Routes>
+                <Route
+                    element={'index'}
+                    index
                     />
 
-                    <Route
-                        element={<Page />}
-                        path=":slug"
+                <Route
+                    element={<Page />}
+                    path=":slug"
                     />
-                </Routes>
-            </div>
-        </div>
+            </Routes>
+        </SiteWrapper>
     );
 };
 

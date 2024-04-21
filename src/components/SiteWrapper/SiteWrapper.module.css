@@ -1,0 +1,26 @@
+.wrapper {
+    display: grid;
+    flex: 1;
+    height: 100%;
+    grid-template-areas: "menu page";
+    grid-template-columns: 200px 1fr;
+}
+
+.menuCollapsed {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0 1fr;
+    grid-template-areas: 
+        "menu"
+        "page";
+}
+
+.menu {
+    grid-area: menu;
+    z-index: 1;
+    position: fixed;
+}
+
+.page {
+    grid-area: page;
+}

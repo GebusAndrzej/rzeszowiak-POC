@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import MenuWrapper from './components/Menu/MenuWrapper';
 import OfferWrapper from './components/OfferWrapper/OfferWrapper';
 import OffersList from './components/OffersList/OffersList';
-import styles from './Tarnowiak.module.css';
+import SiteWrapper from '@/components/SiteWrapper/SiteWrapper';
 
 const Tarnowiak = () => {
     const { data } = useQuery({
@@ -27,33 +27,29 @@ const Tarnowiak = () => {
     );
 
     return (
-        <div className={styles.wrapper}>
-            <MenuWrapper originalElement={menuElement} />
-
-            <div className={styles.page}>
-                <Routes>
-                    <Route
-                        element={"index"}
-                        index
+        <SiteWrapper menuElement={<MenuWrapper originalElement={menuElement} />}>
+            <Routes>
+                <Route
+                    element={"index"}
+                    index
                     />
 
-                    <Route
-                        element={<OffersList />}
-                        path={`/ogloszenia/*`}
+                <Route
+                    element={<OffersList />}
+                    path={`/ogloszenia/*`}
                     />
 
-                    <Route
-                        element={<OfferWrapper />}
-                        path={`/ogloszenie/:announcementId/:announcementText`}
+                <Route
+                    element={<OfferWrapper />}
+                    path={`/ogloszenie/:announcementId/:announcementText`}
                     />
 
-                    <Route
-                        element={'szukaj'}
-                        path={`/szukaj/`}
+                <Route
+                    element={'szukaj'}
+                    path={`/szukaj/`}
                     />
-                </Routes>
-            </div>
-        </div>
+            </Routes>
+        </SiteWrapper>
     );
 };
 

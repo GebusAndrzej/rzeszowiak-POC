@@ -1,76 +1,71 @@
-import { ArrowLeftIcon, ChevronLeft, CircleChevronLeft, MenuIcon, Store } from 'lucide-react';
-import { TMenuGroup } from './Menu.d';
-import styles from './Menu.module.css';
-import clsx from 'clsx';
-import MenuGroup from './components/MenuGroup/MenuGroup';
-import { ComponentType, useState } from 'react';
-import { MenuItemBaseProps } from './components/MenuItemBase/MenuItemBase';
-import { NavLink } from 'react-router-dom';
+import {
+  MenuIcon,
+  Store,
+} from "lucide-react";
+import { TMenuGroup } from "./Menu.d";
+import styles from "./Menu.module.css";
+import clsx from "clsx";
+import MenuGroup from "./components/MenuGroup/MenuGroup";
+import { ComponentType, useCallback, useContext } from "react";
+import { MenuItemBaseProps } from "./components/MenuItemBase/MenuItemBase";
+import { NavLink } from "react-router-dom";
+import { SiteContext } from "../SiteWrapper/SiteWrapper";
 
 type Props = {
-    items: TMenuGroup[];
-    siteName: string;
-    urlTransformer?: (url?: string) => string;
-    Item?: ComponentType<MenuItemBaseProps>;
-}
+  items: TMenuGroup[];
+  siteName: string;
+  urlTransformer?: (url?: string) => string;
+  Item?: ComponentType<MenuItemBaseProps>;
+};
 
-const Menu = ({
-    items,
-    siteName,
-    urlTransformer,
-    Item,
-}: Props) => {
-    const [isCollapsed, setIsCollapsed] = useState(false)
-    return isCollapsed
-        ? (
-            <div className={styles.collapsedMenuIcon}>
-                <MenuIcon
-                    style={{ cursor: "pointer" }}
-                    onClick={() => setIsCollapsed(prev => !prev)}
-                />
-            </div>
-        )
-        : (
-            <div
-                className={clsx(
-                    styles.wrapper,
-                    isCollapsed && styles.collapsed,
-                )}
-            >
-                <div
-                    className={clsx(
-                        styles.pageLogo,
-                        isCollapsed && styles.pageLogoCollapsed
-                    )}
-                >
-                    {!isCollapsed && (
-                        <>
-                            <NavLink to="/">
-                                <Store />
-                            </NavLink>
+const Menu = ({ items, siteName, urlTransformer, Item }: Props) => {
+  const { menuCollapsed, setContextValue } = useContext(SiteContext);
 
-                            <span className={styles.siteName}>
-                                {siteName}
-                            </span>
-                        </>
-                    )}
+  const toggleMenu = useCallback(
+    () =>
+      setContextValue((prev) => ({
+        ...prev,
+        menuCollapsed: !prev.menuCollapsed,
+      })),
+    [setContextValue]
+  );
 
-                    <MenuIcon
-                        style={{ cursor: "pointer" }}
-                        onClick={() => setIsCollapsed(prev => !prev)}
-                    />
-                </div>
+  return menuCollapsed ? (
+    <div className={styles.collapsedMenuIcon}>
+      <MenuIcon style={{ cursor: "pointer" }} onClick={toggleMenu} />
+    </div>
+  ) : (
+    <>
+      <div
+        className={clsx(
+          styles.pageLogo,
+          menuCollapsed && styles.pageLogoCollapsed
+        )}
+      >
+        {!menuCollapsed && (
+          <>
+            <NavLink to="/">
+              <Store />
+            </NavLink>
 
-                {items?.map(category => (
-                    <MenuGroup
-                        category={category}
-                        key={category.categoryName}
-                        urlTransformer={urlTransformer}
-                        Item={Item}
-                    />
-                ))}
-            </div>
-        )
-}
+            <span className={styles.siteName}>{siteName}</span>
+          </>
+        )}
 
-export default Menu
+        <MenuIcon style={{ cursor: "pointer" }} onClick={toggleMenu} />
+      </div>
+      <div className={clsx(styles.wrapper, menuCollapsed && styles.collapsed)}>
+        {items?.map((category) => (
+          <MenuGroup
+            category={category}
+            key={category.categoryName}
+            urlTransformer={urlTransformer}
+            Item={Item}
+          />
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default Menu;

@@ -16,6 +16,7 @@ import {
 import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
 import {
     useCallback,
+    useContext,
     useMemo,
     useState,
 } from 'react';
@@ -23,6 +24,8 @@ import Pagination from '@/components/Pagination/Pagination';
 import styles from './ListFilters.module.css';
 import useQueryParams from '@/lib/hooks/useQueryParams';
 import useRzeszowiakCategoryPageController from '../../hooks/useRzeszowiakCategoryPageController';
+import { SiteContext } from '@/components/SiteWrapper/SiteWrapper';
+import clsx from 'clsx';
 
 type Props = {
     paginationLinkGenerator: ((number: string) => string) | undefined;
@@ -42,6 +45,7 @@ const ListFilters = ({
     } = useRzeszowiakCategoryPageController();
     const [ params ] = useSearchParams();
     const { queryParamsObject } = useQueryParams();
+    const {menuCollapsed} = useContext(SiteContext)
 
     const defaultValues = useMemo(
         () => ({
@@ -111,7 +115,10 @@ const ListFilters = ({
     );
 
     return (
-        <nav className={styles.filtersBar}>
+        <nav className={clsx(
+            styles.filtersBar,
+            menuCollapsed && styles.menuCollapsed
+        )}>
             <div className={styles.row}>
                 <Input
                     className="max-w-72"
