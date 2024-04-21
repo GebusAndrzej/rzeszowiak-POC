@@ -31,7 +31,9 @@ const MenuItemBase = ({
                 )}
                 to={localUrl || '#'}
             >
-                {item.text}
+                <span className={styles.text}>
+                    {item.text}
+                </span>
 
                 {!!item.count && (
                     <span className={styles.count}>
@@ -59,8 +61,8 @@ const MenuItemBase = ({
                 key={item.text}
                 to={localUrl || '#'}
             >
-                <div className={styles.menuLabel}>
-                    <span>
+                <div className={styles.menuLabelContainer}>
+                    <span className={styles.text}>
                         {item.text}
                     </span>
 

@@ -1,6 +1,5 @@
 .menuItem {
     text-transform: none;
-    -webkit-appearance: button;
     background-color: transparent;
     background-image: none;
     cursor: pointer;
@@ -27,11 +26,15 @@
     padding-right: 8px;
 }
 
-.menuLabel {
+.menuLabelContainer {
     flex: 1;
     display: flex;
 
     .count {
         margin-left: auto;
     }
+}
+
+.text {
+    word-wrap: break-word;
 }

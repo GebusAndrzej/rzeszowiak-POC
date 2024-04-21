@@ -5,19 +5,40 @@
     overflow-y: auto;
     box-sizing: border-box;
     width: 100%;
-    grid-area: menu;
     max-width: 200px;
     transition-duration: .1s;
 }
 
+@media (max-width: 768px) {
+    .wrapper {
+        position: relative;
+    }
+}
+
 .collapsed {
-    max-width: 50px;
+    max-width: 0;
 }
 
 .pageLogo {
     min-height: 56px;
     background-color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 8px;
+}
+
+.pageLogoCollapsed {
+    justify-content: center;
+}
+
+.collapsedMenuIcon {
+    position: sticky;
+    top: 0;
+    left: 0;
+    padding: 12px;
+}
+
+.siteName {
+    font-weight: bold;
 }

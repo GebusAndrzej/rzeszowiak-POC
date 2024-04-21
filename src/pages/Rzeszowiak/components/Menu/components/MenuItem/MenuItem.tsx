@@ -50,7 +50,7 @@ const MenuItem = ({
                 )}
                 to={localURL}
             >
-                <span>
+                <span className={styles.text}>
                     {item.text}
                 </span>
 
@@ -79,8 +79,8 @@ const MenuItem = ({
                 key={item.text}
                 to={localURL}
             >
-                <div className={styles.menuLabel}>
-                    <span>
+                <div className={styles.menuLabelContainer}>
+                    <span className={styles.text}>
                         {item.text}
                     </span>
 
