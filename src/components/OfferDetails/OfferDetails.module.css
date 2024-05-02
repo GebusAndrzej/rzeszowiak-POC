@@ -11,7 +11,7 @@
 }
 
 .carousel {
-    box-shadow: 0 0 5px gray;
+    box-shadow: var(--boxShadow);
     border-radius: 4px;
     max-width: 50%;
     display: flex;
@@ -27,7 +27,7 @@
 .mainData {
     flex: 1;
     border-radius: 4px;
-    box-shadow: 0 0 5px gray;
+    box-shadow: var(--boxShadow);
     padding: 12px;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@
 
 .description {
     border-radius: 4px;
-    box-shadow: 0 0 5px gray;
+    box-shadow: var(--boxShadow);
     padding: 16px;
 }
 

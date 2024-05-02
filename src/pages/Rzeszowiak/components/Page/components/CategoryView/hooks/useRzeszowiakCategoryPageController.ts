@@ -14,11 +14,11 @@ const useRzeszowiakCategoryPageController = () => {
             const numbers = numbersMatched[numbersMatched.length - 1];
 
             return {
-                categoryNumber: numbers.substring(0, 3),
-                page: numbers.substring(3, 6),
-                size: numbers.substring(7, 9),
-                sort: numbers.substring(6, 7),
-                time: numbers.substring(9, 10),
+                categoryNumber: numbers?.substring(0, 3),
+                page: numbers?.substring(3, 6),
+                size: numbers?.substring(7, 9),
+                sort: numbers?.substring(6, 7),
+                time: numbers?.substring(9, 10),
             };
         }, [ slug ],
     );

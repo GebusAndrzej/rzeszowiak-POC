@@ -97,10 +97,12 @@ const CategoryView = ({ body }: Props) => {
 
     return content && (
         <>
-            <ListFilters
-                pageInfo={pageInfo}
-                paginationLinkGenerator={generatePaginationUrl}
-            />
+            {slugUrlParams.page && (
+                <ListFilters
+                    pageInfo={pageInfo}
+                    paginationLinkGenerator={generatePaginationUrl}
+                />
+            )}
 
             <div className={styles.wrapper}>
                 <div>
@@ -116,12 +118,14 @@ const CategoryView = ({ body }: Props) => {
                     ))}
                 </div>
 
-                <Pagination
-                    currentPage={pageInfo.current}
-                    linkGenerator={generatePaginationUrl}
-                    onPageChange={scrollTop}
-                    pages={pageInfo.max}
-                />
+                {slugUrlParams.page && (
+                    <Pagination
+                        currentPage={pageInfo.current}
+                        linkGenerator={generatePaginationUrl}
+                        onPageChange={scrollTop}
+                        pages={pageInfo.max}
+                    />
+                )}
             </div>
         </>
     );

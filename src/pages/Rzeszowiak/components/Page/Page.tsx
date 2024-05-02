@@ -4,7 +4,7 @@ import {
     SITE_URL,
 } from '../../common';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import CategoryView from './components/CategoryView/CategoryView';
@@ -16,7 +16,11 @@ import useQueryParams from '@/lib/hooks/useQueryParams';
 
 const numberRegex = /\d+/g;
 
-const Page = () => {
+type Props = {
+    mainPageHtml?: Document;
+}
+
+const Page = ({mainPageHtml} : Props) => {
     const { slug } = useParams();
     const { queryParamsUrl } = useQueryParams();
 
@@ -27,6 +31,7 @@ const Page = () => {
             return {
                 list: numbers[numbers.length - 1]?.length === 10,
                 offer: numbers[numbers. length - 1]?.length === 8,
+                index: !numbers.length
             };
         },
         [ slug ],
@@ -52,6 +57,13 @@ const Page = () => {
 
     return (
         <div>
+            {pageType.index && mainPageHtml && (
+                <CategoryView
+                        body={mainPageHtml.body}
+                        key={slug}
+                    />
+            )}
+
             {pageType.list && (
                 <DataLoader
                     {...queryData}

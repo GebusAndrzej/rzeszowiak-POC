@@ -45,14 +45,14 @@ const Rzeszowiak = () => {
 
             <Routes>
                 <Route
-                    element={'index'}
+                    element={<Page mainPageHtml={html} />}
                     index
-                    />
+                />
 
                 <Route
                     element={<Page />}
                     path=":slug"
-                    />
+                />
             </Routes>
         </SiteWrapper>
     );

@@ -31,8 +31,8 @@ const Menu = ({ items, siteName, urlTransformer, Item }: Props) => {
   );
 
   return menuCollapsed ? (
-    <div className={styles.collapsedMenuIcon}>
-      <MenuIcon style={{ cursor: "pointer" }} onClick={toggleMenu} />
+    <div className={styles.collapsedMenuIcon} onClick={toggleMenu}>
+      <MenuIcon style={{ cursor: "pointer" }} />
     </div>
   ) : (
     <>
