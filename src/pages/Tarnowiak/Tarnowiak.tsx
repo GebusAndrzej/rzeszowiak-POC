@@ -11,6 +11,7 @@ import MenuWrapper from './components/Menu/MenuWrapper';
 import OfferWrapper from './components/OfferWrapper/OfferWrapper';
 import OffersList from './components/OffersList/OffersList';
 import SiteWrapper from '@/components/SiteWrapper/SiteWrapper';
+import SearchWrapper from './components/SearchWrapper/SearchWrapper';
 
 const Tarnowiak = () => {
     const { data } = useQuery({
@@ -32,22 +33,23 @@ const Tarnowiak = () => {
                 <Route
                     element={"index"}
                     index
-                    />
-
-                <Route
-                    element={<OffersList />}
-                    path={`/ogloszenia/*`}
-                    />
+                />
 
                 <Route
                     element={<OfferWrapper />}
                     path={`/ogloszenie/:announcementId/:announcementText`}
-                    />
+                />
+                
+                <Route
+                    element={<OffersList />}
+                    path={`/ogloszenia/*`}
+                />
+
 
                 <Route
-                    element={'szukaj'}
+                    element={<SearchWrapper />}
                     path={`/szukaj/`}
-                    />
+                />
             </Routes>
         </SiteWrapper>
     );

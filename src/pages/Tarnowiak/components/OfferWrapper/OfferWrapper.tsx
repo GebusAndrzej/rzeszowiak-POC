@@ -5,10 +5,11 @@ import {
     SITE_URL,
 } from "../../commom";
 import { parseHTMLResponse } from "@/lib/helpers/HTMLhelpers";
-// import { processBody } from "./helpers";
+import { processBody } from "./helpers";
 import { useLocation } from "react-router-dom";
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import OfferDetails from "@/components/OfferDetails/OfferDetails";
 
 const OfferWrapper = () => {
     const location = useLocation();
@@ -34,17 +35,26 @@ const OfferWrapper = () => {
         [ html ],
     );
 
-    // const contentData = useMemo(
-    //     () => processBody(content),
-    //     [ content ],
-    // );
+    const contentData = useMemo(
+        () => processBody(content),
+        [ content ],
+    );
 
     return (
-        <div
-            dangerouslySetInnerHTML={{
-                __html: content?.outerHTML || '',
-            }}
-        />
+        <div>
+            <OfferDetails
+                baseData={contentData.baseData}
+                images={contentData.images} 
+                description={(
+                    <div dangerouslySetInnerHTML={{ __html: contentData.description }} />
+                )}
+            />
+            {/* <div
+                dangerouslySetInnerHTML={{
+                    __html: content?.outerHTML || '',
+                }}
+                /> */}
+        </div>
     );
 };
 

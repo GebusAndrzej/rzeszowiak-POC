@@ -4,7 +4,7 @@ import {
     SITE_URL,
 } from '../../common';
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import CategoryView from './components/CategoryView/CategoryView';
