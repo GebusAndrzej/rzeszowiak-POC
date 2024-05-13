@@ -56,3 +56,22 @@
         }
     }
 }
+
+@media (max-width: 900px) {
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .imageWrapper {
+        max-width: 100%;
+    }
+
+    .offerContent{
+        gap: 8px;
+        
+        .description {
+            font-size: 90%;
+            max-height: 200px;
+        }
+    }
+}

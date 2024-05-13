@@ -47,3 +47,12 @@
 .additionalInfo {
     margin-top: 16px;
 }
+
+@media (max-width: 900px) {
+    .firstRow{
+        flex-direction: column;
+    }
+    .carousel {
+        max-width: 100%;
+    }
+}
