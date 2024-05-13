@@ -10,8 +10,8 @@ import { useQuery } from '@tanstack/react-query';
 import MenuWrapper from './components/Menu/MenuWrapper';
 import OfferWrapper from './components/OfferWrapper/OfferWrapper';
 import OffersList from './components/OffersList/OffersList';
-import SiteWrapper from '@/components/SiteWrapper/SiteWrapper';
 import SearchWrapper from './components/SearchWrapper/SearchWrapper';
+import SiteWrapper from '@/components/SiteWrapper/SiteWrapper';
 
 const Tarnowiak = () => {
     const { data } = useQuery({
@@ -39,12 +39,11 @@ const Tarnowiak = () => {
                     element={<OfferWrapper />}
                     path={`/ogloszenie/:announcementId/:announcementText`}
                 />
-                
+
                 <Route
                     element={<OffersList />}
                     path={`/ogloszenia/*`}
                 />
-
 
                 <Route
                     element={<SearchWrapper />}

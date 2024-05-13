@@ -1,6 +1,6 @@
-import Menu from '@/components/Menu/Menu';
 import { parseMenuHTML } from './utils/helpers';
 import { useMemo } from 'react';
+import Menu from '@/components/Menu/Menu';
 
 type Props = {
     originalElement?: string;
@@ -23,7 +23,7 @@ const MenuWrapper = ({ originalElement = '' }: Props) => {
         <div>
             <Menu
                 items={parsedMenu}
-                siteName='Tarnowiak'
+                siteName="Tarnowiak"
             />
         </div>
     );

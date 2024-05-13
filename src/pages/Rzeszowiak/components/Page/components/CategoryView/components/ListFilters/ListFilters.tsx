@@ -13,6 +13,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
+import { SiteContext } from '@/components/SiteWrapper/SiteWrapper';
 import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
 import {
     useCallback,
@@ -21,11 +22,10 @@ import {
     useState,
 } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
+import clsx from 'clsx';
 import styles from './ListFilters.module.css';
 import useQueryParams from '@/lib/hooks/useQueryParams';
 import useRzeszowiakCategoryPageController from '../../hooks/useRzeszowiakCategoryPageController';
-import { SiteContext } from '@/components/SiteWrapper/SiteWrapper';
-import clsx from 'clsx';
 
 type Props = {
     paginationLinkGenerator: ((number: string) => string) | undefined;
@@ -45,7 +45,7 @@ const ListFilters = ({
     } = useRzeszowiakCategoryPageController();
     const [ params ] = useSearchParams();
     const { queryParamsObject } = useQueryParams();
-    const {menuCollapsed} = useContext(SiteContext)
+    const { menuCollapsed } = useContext(SiteContext);
 
     const defaultValues = useMemo(
         () => ({
@@ -115,11 +115,13 @@ const ListFilters = ({
     );
 
     return (
-        <nav className={clsx(
-            styles.filtersBar,
-            menuCollapsed && styles.menuCollapsed
-        )}>
-            <div className={styles.row}>
+        <nav
+            className={clsx(
+                styles.filtersBar,
+                menuCollapsed && styles.menuCollapsed,
+            )}
+        >
+            <form className={styles.row}>
                 <Input
                     className="max-w-72"
                     onChange={event => handleSetFilter('z', event.target.value)}
@@ -199,8 +201,8 @@ const ListFilters = ({
                 </Select>
 
                 <NavLink to={preparedSearchUrl}>
-                    <Button>
-                    Szukaj
+                    <Button type="submit">
+                        Szukaj
                     </Button>
                 </NavLink>
 
@@ -210,7 +212,7 @@ const ListFilters = ({
                     linkGenerator={paginationLinkGenerator}
                     pages={pageInfo.max}
                 />
-            </div>
+            </form>
         </nav>
     );
 };

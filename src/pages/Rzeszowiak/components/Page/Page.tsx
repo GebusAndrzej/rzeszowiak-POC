@@ -18,9 +18,9 @@ const numberRegex = /\d+/g;
 
 type Props = {
     mainPageHtml?: Document;
-}
+};
 
-const Page = ({mainPageHtml} : Props) => {
+const Page = ({ mainPageHtml }: Props) => {
     const { slug } = useParams();
     const { queryParamsUrl } = useQueryParams();
 
@@ -29,9 +29,9 @@ const Page = ({mainPageHtml} : Props) => {
             const numbers = slug?.match(numberRegex) || [];
 
             return {
+                index: !numbers.length,
                 list: numbers[numbers.length - 1]?.length === 10,
                 offer: numbers[numbers. length - 1]?.length === 8,
-                index: !numbers.length
             };
         },
         [ slug ],
@@ -59,9 +59,9 @@ const Page = ({mainPageHtml} : Props) => {
         <div>
             {pageType.index && mainPageHtml && (
                 <CategoryView
-                        body={mainPageHtml.body}
-                        key={slug}
-                    />
+                    body={mainPageHtml.body}
+                    key={slug}
+                />
             )}
 
             {pageType.list && (

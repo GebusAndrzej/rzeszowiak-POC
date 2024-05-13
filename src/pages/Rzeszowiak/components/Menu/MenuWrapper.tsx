@@ -1,16 +1,14 @@
-import { parseMenuHTML } from './utils/helpers';
-import {
-    useMemo,
-} from 'react';
-import Menu from '@/components/Menu/Menu';
 import { constructCategoryUrl } from '../../helpers/rzeszowiakHelpers';
+import { parseMenuHTML } from './utils/helpers';
+import { useMemo } from 'react';
+import Menu from '@/components/Menu/Menu';
 import MenuItem from './components/MenuItem/MenuItem';
 
 type Props = {
     originalElement?: string;
 };
 
-const MenuWrapper = ({ originalElement = '' }: Props) => {    
+const MenuWrapper = ({ originalElement = '' }: Props) => {
     const parsedMenu = useMemo(
         () => {
             if (!originalElement.length) return [];
@@ -21,13 +19,12 @@ const MenuWrapper = ({ originalElement = '' }: Props) => {
         [ originalElement ],
     );
 
-
     return (
         <Menu
-            items={parsedMenu}
-            siteName='Rzeszowiak'
-            urlTransformer={constructCategoryUrl}
             Item={MenuItem}
+            items={parsedMenu}
+            siteName="Rzeszowiak"
+            urlTransformer={constructCategoryUrl}
         />
     );
 };

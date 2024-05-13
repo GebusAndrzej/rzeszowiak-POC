@@ -2,20 +2,18 @@ import {
     NavLink,
     useSearchParams,
 } from 'react-router-dom';
+import { TMenuItem } from '@/components/Menu/Menu.d';
 import { constructCategoryUrl } from '@/pages/Rzeszowiak/helpers/rzeszowiakHelpers';
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import styles from './MenuItem.module.css';
-import { TMenuItem } from '@/components/Menu/Menu.d';
 
 type Props = {
     item: TMenuItem;
     urlTransformer?: (url?: string) => string;
 };
 
-const MenuItem = ({
-    item,
-}: Props) => {
+const MenuItem = ({ item }: Props) => {
     const [ params ] = useSearchParams();
 
     const currentSubpageParam = useMemo(

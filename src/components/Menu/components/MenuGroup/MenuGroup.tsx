@@ -3,20 +3,20 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import { ComponentType } from 'react';
 import { TMenuGroup } from '../../Menu.d';
 import MenuItemBase, { MenuItemBaseProps } from '../MenuItemBase/MenuItemBase';
-import styles from './MenuGroup.module.css'
-import { ComponentType } from 'react';
+import styles from './MenuGroup.module.css';
 
 type Props = {
     category: TMenuGroup;
-    urlTransformer?: (url?: string) => string
+    urlTransformer?: (url?: string) => string;
     Item?: ComponentType<MenuItemBaseProps>;
 };
 
-const MenuGroup = ({ 
-    category,
+const MenuGroup = ({
     Item = MenuItemBase,
+    category,
 }: Props) => {
 
     return (

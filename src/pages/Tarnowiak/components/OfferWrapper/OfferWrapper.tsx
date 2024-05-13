@@ -44,11 +44,12 @@ const OfferWrapper = () => {
         <div>
             <OfferDetails
                 baseData={contentData.baseData}
-                images={contentData.images} 
                 description={(
                     <div dangerouslySetInnerHTML={{ __html: contentData.description }} />
                 )}
+                images={contentData.images}
             />
+
             {/* <div
                 dangerouslySetInnerHTML={{
                     __html: content?.outerHTML || '',

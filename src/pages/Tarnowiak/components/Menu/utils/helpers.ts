@@ -1,4 +1,7 @@
-import { TMenuGroup, TMenuItem } from '@/components/Menu/Menu.d';
+import {
+    TMenuGroup,
+    TMenuItem,
+} from '@/components/Menu/Menu.d';
 import { createElementFromHTML } from '@/lib/helpers/HTMLhelpers';
 
 const getLinkData = (html: string): TMenuItem => {

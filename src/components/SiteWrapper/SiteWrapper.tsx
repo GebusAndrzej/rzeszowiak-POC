@@ -1,14 +1,19 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { ReactNode } from "react"
-import styles from './SiteWrapper.module.css'
+import React, {
+    Dispatch,
+    ReactNode,
+    SetStateAction,
+    useState,
+} from "react";
 import clsx from "clsx";
+import styles from './SiteWrapper.module.css';
+import useScreenMedia from "@/lib/hooks/useScreenMedia";
 
 type ContextValues = {
     menuCollapsed: boolean;
-}
+};
 
 type ContextType = {
-    setContextValue: Dispatch<SetStateAction<ContextValues>>
+    setContextValue: Dispatch<SetStateAction<ContextValues>>;
 } & ContextValues;
 
 export const SiteContext = React.createContext<ContextType>({
@@ -17,37 +22,43 @@ export const SiteContext = React.createContext<ContextType>({
 });
 
 type Props = {
-    children: ReactNode,
-    menuElement: ReactNode,
-}
+    children: ReactNode;
+    menuElement: ReactNode;
+};
 
 const SiteWrapper = ({
     children,
     menuElement,
 }: Props) => {
-    const [state, setState] = useState<ContextValues>({
-        menuCollapsed: false,
-    })
-    
-  return (
-    <SiteContext.Provider value={{
-        ...state,
-        setContextValue: setState,
-    }}>
-        <div className={clsx(
-            styles.wrapper,
-            state.menuCollapsed && styles.menuCollapsed
-        )}>
-            <div className={styles.menu}>
-                {menuElement}
-            </div>
+    const screen = useScreenMedia();
 
-            <div className={styles.page}>
-                {children}
-            </div>
-        </div>
-    </SiteContext.Provider>
-  )
-}
+    const [ state, setState ] = useState<ContextValues>({
+        menuCollapsed: !!screen.small,
+    });
 
-export default SiteWrapper
+    return (
+        <SiteContext.Provider
+            value={{
+                ...state,
+                setContextValue: setState,
+            }}
+        >
+            <div
+                className={clsx(
+                    styles.wrapper,
+                    state.menuCollapsed && styles.menuCollapsed,
+                )}
+            >
+                <div className={styles.menu}>
+                    {menuElement}
+                </div>
+
+                <div className={styles.page}>
+                    {children}
+                </div>
+            </div>
+        </SiteContext.Provider>
+    );
+};
+
+export default SiteWrapper;

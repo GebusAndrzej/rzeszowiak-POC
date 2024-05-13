@@ -1,26 +1,29 @@
-import { NavLink } from 'react-router-dom'
-import { TMenuItem } from '../../Menu.d'
-import styles from './MenuItem.module.css'
-import clsx from 'clsx'
-import { useMemo } from 'react'
+import { NavLink } from 'react-router-dom';
+import { TMenuItem } from '../../Menu.d';
+import { useMemo } from 'react';
+import clsx from 'clsx';
+import styles from './MenuItem.module.css';
 
 export type MenuItemBaseProps = {
     item: TMenuItem;
     urlTransformer?: (url?: string) => string;
-}
+};
 
 const MenuItemBase = ({
-    item, 
+    item,
     urlTransformer,
 }: MenuItemBaseProps) => {
     const isGroup = !!item.children?.length;
 
     const localUrl = useMemo(
         () => urlTransformer
-                ? urlTransformer(item.url)
-                : item.url,
-        [urlTransformer, item]
-    )
+            ? urlTransformer(item.url)
+            : item.url,
+        [
+            urlTransformer,
+            item,
+        ],
+    );
 
     return isGroup
         ? (<>
@@ -74,6 +77,6 @@ const MenuItemBase = ({
                 </div>
             </NavLink>
         );
-}
+};
 
-export default MenuItemBase
+export default MenuItemBase;

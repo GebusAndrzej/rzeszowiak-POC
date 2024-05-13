@@ -1,26 +1,32 @@
-import { APP_ROUTE } from 'app/appConsts'
-import { useCallback, useMemo } from 'react'
-import { useLocation } from 'react-router-dom'
-import { QUERY_KEY, SITE_URL } from '../../commom'
-import { useQuery } from '@tanstack/react-query'
-import { AHttpClient } from '@/http/AxiosAbstract'
-import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers'
-import DataLoader from '@/components/DataLoader/DataLoader'
-import ListViewSkeleton from '@/components/Skeletons/ListViewSkeleton/ListViewSkeleton'
-import ListOfferWrapper from '../OffersList/components/ListOfferWrapper/ListOfferWrapper'
-import styles from './SearchWrapper.module.css'
-import Pagination from '@/components/Pagination/Pagination'
+import { AHttpClient } from '@/http/AxiosAbstract';
+import { APP_ROUTE } from 'app/appConsts';
+import {
+    QUERY_KEY,
+    SITE_URL,
+} from '../../commom';
+import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
+import {
+    useCallback,
+    useMemo,
+} from 'react';
+import { useLocation } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import DataLoader from '@/components/DataLoader/DataLoader';
+import ListOfferWrapper from '../OffersList/components/ListOfferWrapper/ListOfferWrapper';
+import ListViewSkeleton from '@/components/Skeletons/ListViewSkeleton/ListViewSkeleton';
+import Pagination from '@/components/Pagination/Pagination';
+import styles from './SearchWrapper.module.css';
 
 const SearchWrapper = () => {
-    const location = useLocation()
+    const location = useLocation();
 
     const parsedUrl = useMemo(
         () => {
-            const base = location.pathname.replace(`${APP_ROUTE.TARNOWIAK}/`, '')
-            return `${SITE_URL}${base}${location.search}`
+            const base = location.pathname.replace(`${APP_ROUTE.TARNOWIAK}/`, '');
+            return `${SITE_URL}${base}${location.search}`;
         },
-        [location]
-    )
+        [ location ],
+    );
 
     const {
         data,
@@ -105,35 +111,35 @@ const SearchWrapper = () => {
         [],
     );
 
-  return (
-    <div>
-    <DataLoader
-        {...queryData}
-        skeleton={<ListViewSkeleton />}
-    >
-        <div className={styles.wrapper}>
+    return (
+        <div>
+            <DataLoader
+                {...queryData}
+                skeleton={<ListViewSkeleton />}
+            >
+                <div className={styles.wrapper}>
 
-            <div className={styles.offerList}>
-                {announcementsList.map((announcement, index) => (
-                    <ListOfferWrapper
-                        key={index}
-                        offer={announcement}
+                    <div className={styles.offerList}>
+                        {announcementsList.map((announcement, index) => (
+                            <ListOfferWrapper
+                                key={index}
+                                offer={announcement}
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                {paginationData.current && (
+                    <Pagination
+                        currentPage={paginationData.current}
+                        linkGenerator={paginationData.getLink}
+                        onPageChange={scrollTop}
+                        pages={paginationData.max}
                     />
-                ))}
-            </div>
+                )}
+            </DataLoader>
         </div>
+    );
+};
 
-        {paginationData.current && (
-            <Pagination
-                currentPage={paginationData.current}
-                linkGenerator={paginationData.getLink}
-                onPageChange={scrollTop}
-                pages={paginationData.max}
-            />
-        )}
-    </DataLoader>
-</div>
-  )
-}
-
-export default SearchWrapper
+export default SearchWrapper;

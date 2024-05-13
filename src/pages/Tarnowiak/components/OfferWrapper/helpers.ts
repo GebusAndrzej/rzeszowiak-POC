@@ -10,7 +10,7 @@ const parseBaseInfo = (data: Element[] = []) => {
             value,
         };
     });
-}
+};
 
 export const processBody = (element: HTMLElement | null) => {
     const title = element?.querySelector('h1')?.textContent;
@@ -22,21 +22,21 @@ export const processBody = (element: HTMLElement | null) => {
     const images = [
         ...element
             ?.querySelector('.images')
-            ?.querySelectorAll('a') || []
-        ].map(a => a.getAttribute('href'))
-        .map(url => `${SITE_URL}${url}`)
+            ?.querySelectorAll('a') || [],
+    ].map(a => a.getAttribute('href'))
+        .map(url => `${SITE_URL}${url}`);
 
-    console.log(contents.map(a => a.outerHTML))
+    console.log(contents.map(a => a.outerHTML));
 
     return {
-        description: description?.outerHTML || '',
-        images: images,
         baseData: [
             {
                 label: "Tytuł",
                 value: title,
             },
-            ...parseBaseInfo(contents)
-        ]
+            ...parseBaseInfo(contents),
+        ],
+        description: description?.outerHTML || '',
+        images,
     };
 };

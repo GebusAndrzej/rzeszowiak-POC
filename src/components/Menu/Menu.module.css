@@ -45,3 +45,13 @@
 .siteName {
     font-weight: bold;
 }
+
+@media (max-width: 900px) {
+    .wrapper {
+        max-width: 100%;
+        background-color: white;
+    }
+    .pageLogo {
+        width: 100vw;
+    }
+}
