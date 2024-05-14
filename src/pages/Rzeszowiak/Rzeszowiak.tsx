@@ -13,11 +13,13 @@ import { useQuery } from '@tanstack/react-query';
 import MenuWrapper from './components/Menu/MenuWrapper';
 import Page from './components/Page/Page';
 import SiteWrapper from '@/components/SiteWrapper/SiteWrapper';
+import DataLoader from '@/components/DataLoader/DataLoader';
+import ListViewSkeleton from '@/components/Skeletons/ListViewSkeleton/ListViewSkeleton';
 
 const Rzeszowiak = () => {
     const {
         data,
-        isLoading,
+        ...queryData
     } = useQuery({
         queryFn: () => AHttpClient.GetPagePost({
             fromCharset: "ISO8859_2",
@@ -39,21 +41,22 @@ const Rzeszowiak = () => {
 
     return (
         <SiteWrapper menuElement={<MenuWrapper originalElement={menuElement} />}>
-            {isLoading && (
-                'Loading...'
-            )}
+            <DataLoader 
+                {...queryData}
+                skeleton={<ListViewSkeleton />}
+            >
+                <Routes>
+                    <Route
+                        element={<Page mainPageHtml={html} />}
+                        index
+                    />
 
-            <Routes>
-                <Route
-                    element={<Page mainPageHtml={html} />}
-                    index
-                />
-
-                <Route
-                    element={<Page />}
-                    path=":slug"
-                />
-            </Routes>
+                    <Route
+                        element={<Page />}
+                        path=":slug"
+                    />
+                </Routes>
+            </DataLoader>
         </SiteWrapper>
     );
 };

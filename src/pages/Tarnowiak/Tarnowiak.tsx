@@ -1,5 +1,5 @@
 import { AHttpClient } from '@/http/AxiosAbstract';
-import { QUERY_KEY } from './commom';
+import { QUERY_KEY, SITE_URL } from './commom';
 import {
     Route,
     Routes,
@@ -12,10 +12,15 @@ import OfferWrapper from './components/OfferWrapper/OfferWrapper';
 import OffersList from './components/OffersList/OffersList';
 import SearchWrapper from './components/SearchWrapper/SearchWrapper';
 import SiteWrapper from '@/components/SiteWrapper/SiteWrapper';
+import DataLoader from '@/components/DataLoader/DataLoader';
+import ListViewSkeleton from '@/components/Skeletons/ListViewSkeleton/ListViewSkeleton';
 
 const Tarnowiak = () => {
-    const { data } = useQuery({
-        queryFn: () => AHttpClient.GetPagePost({ q: 'https://www.tarnowiak.pl/' }),
+    const { 
+        data, 
+        ...queryData 
+    } = useQuery({
+        queryFn: () => AHttpClient.GetPagePost({ q: SITE_URL }),
         queryKey: [ QUERY_KEY.MAIN_PAGE ],
         refetchOnWindowFocus: false,
     });
@@ -29,27 +34,37 @@ const Tarnowiak = () => {
 
     return (
         <SiteWrapper menuElement={<MenuWrapper originalElement={menuElement} />}>
-            <Routes>
-                <Route
-                    element={"index"}
-                    index
-                />
+            <DataLoader 
+                {...queryData}
+                skeleton={<ListViewSkeleton />}
+            >
+                <Routes>
+                    <Route
+                        element={<OffersList mainPageHtml={html} />}
+                        index
+                    />
 
-                <Route
-                    element={<OfferWrapper />}
-                    path={`/ogloszenie/:announcementId/:announcementText`}
-                />
+                    <Route
+                        element={<OfferWrapper />}
+                        path={`/ogloszenie/:announcementId/:announcementText`}
+                    />
 
-                <Route
-                    element={<OffersList />}
-                    path={`/ogloszenia/*`}
-                />
+                    <Route
+                        element={<OffersList />}
+                        path={`/ostatnio-dodane/*`}
+                    />
 
-                <Route
-                    element={<SearchWrapper />}
-                    path={`/szukaj/`}
-                />
-            </Routes>
+                    <Route
+                        element={<OffersList />}
+                        path={`/ogloszenia/*`}
+                    />
+
+                    <Route
+                        element={<SearchWrapper />}
+                        path={`/szukaj/`}
+                    />
+                </Routes>
+            </DataLoader>
         </SiteWrapper>
     );
 };

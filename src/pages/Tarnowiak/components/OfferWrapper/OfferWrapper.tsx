@@ -7,19 +7,27 @@ import {
 import { parseHTMLResponse } from "@/lib/helpers/HTMLhelpers";
 import { processBody } from "./helpers";
 import { useLocation } from "react-router-dom";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import OfferDetails from "@/components/OfferDetails/OfferDetails";
+import DataLoader from "@/components/DataLoader/DataLoader";
+import OfferDetailsSkeleton from "@/components/Skeletons/OfferDetailsSkeleton/OfferDetailsSkeleton";
 
 const OfferWrapper = () => {
     const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo({ top: 0 });
+
+        return;
+    },[]);
 
     const url = useMemo(
         () => location.pathname.replace(`/${APP_ROUTE.TARNOWIAK}/`, ''),
         [ location.pathname ],
     );
 
-    const { data } = useQuery({
+    const { data, ...queryData } = useQuery({
         queryFn: () => AHttpClient.GetPagePost({ q: `${SITE_URL}${url}` }),
         queryKey: [
             QUERY_KEY.PAGE,
@@ -41,7 +49,10 @@ const OfferWrapper = () => {
     );
 
     return (
-        <div>
+        <DataLoader
+            {...queryData}
+            skeleton={<OfferDetailsSkeleton />}
+        >
             <OfferDetails
                 baseData={contentData.baseData}
                 description={(
@@ -55,7 +66,7 @@ const OfferWrapper = () => {
                     __html: content?.outerHTML || '',
                 }}
                 /> */}
-        </div>
+        </DataLoader>
     );
 };
 

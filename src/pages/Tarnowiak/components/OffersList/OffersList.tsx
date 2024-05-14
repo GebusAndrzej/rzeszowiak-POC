@@ -17,7 +17,13 @@ import ListViewSkeleton from "@/components/Skeletons/ListViewSkeleton/ListViewSk
 import Pagination from "@/components/Pagination/Pagination";
 import styles from './OffersList.module.css';
 
-const OffersList = () => {
+type Props = {
+    mainPageHtml?: Document;
+}
+
+const OffersList = ({
+    mainPageHtml
+}: Props) => {
     const location = useLocation();
 
     const page = useMemo(
@@ -29,6 +35,7 @@ const OffersList = () => {
         data,
         ...queryData
     } = useQuery({
+        enabled: !mainPageHtml,
         queryFn: () => AHttpClient.GetPagePost({ q: `${SITE_URL}/${page}` }),
         queryKey: [
             QUERY_KEY.PAGE,
@@ -37,7 +44,10 @@ const OffersList = () => {
         refetchOnWindowFocus: false,
     });
 
-    const html = useMemo(() => parseHTMLResponse(data), [ data ]);
+    const html = useMemo(
+        () => mainPageHtml ? mainPageHtml : parseHTMLResponse(data), 
+        [ data, mainPageHtml ]
+    );
 
     const contentWrapper = useMemo(
         () => html.querySelector<HTMLDivElement>('#content'),

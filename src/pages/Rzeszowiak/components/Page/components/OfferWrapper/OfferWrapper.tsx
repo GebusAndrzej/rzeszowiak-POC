@@ -13,14 +13,11 @@ type Props = {
 };
 
 const OfferWrapper = ({ body }: Props) => {
-    useEffect(
-        () => {
+    useEffect(() => {
             window.scrollTo({ top: 0 });
 
             return;
-        },
-        [],
-    );
+    },[]);
 
     const content = useMemo(
         () => processBody(body),
