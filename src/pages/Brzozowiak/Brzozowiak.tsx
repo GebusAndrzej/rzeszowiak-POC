@@ -6,6 +6,7 @@ import {
 import {
     Route,
     Routes,
+    useLocation,
 } from "react-router-dom";
 import { parseHTMLResponse } from "@/lib/helpers/HTMLhelpers";
 import { useMemo } from "react";
@@ -13,9 +14,12 @@ import { useQuery } from "@tanstack/react-query";
 import DataLoader from "@/components/DataLoader/DataLoader";
 import ListViewSkeleton from "@/components/Skeletons/ListViewSkeleton/ListViewSkeleton";
 import MenuWrapper from "./components/MenuWrapper/MenuWrapper";
+import OffersList from "./components/OffersList/OffersList";
 import SiteWrapper from "@/components/SiteWrapper/SiteWrapper";
 
 const Brzozowiak = () => {
+    const { search } = useLocation();
+
     const {
         data,
         ...queryData
@@ -42,8 +46,18 @@ const Brzozowiak = () => {
             >
                 <Routes>
                     <Route
-                        element={<div>main</div>}
+                        element={<OffersList mainPageHtml={search.length ? html : undefined} />}
                         index
+                    />
+
+                    <Route
+                        element={<div>offer</div>}
+                        path="ogloszenia/:slug"
+                    />
+
+                    <Route
+                        element={<OffersList />}
+                        path=":slug"
                     />
                 </Routes>
             </DataLoader>
