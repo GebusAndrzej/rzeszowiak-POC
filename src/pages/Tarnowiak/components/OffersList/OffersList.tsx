@@ -3,7 +3,7 @@ import { APP_ROUTE } from "app/appConsts";
 import {
     QUERY_KEY,
     SITE_URL,
-} from "../../commom";
+} from "../../common";
 import { parseHTMLResponse } from "@/lib/helpers/HTMLhelpers";
 import {
     useCallback,
@@ -19,11 +19,9 @@ import styles from './OffersList.module.css';
 
 type Props = {
     mainPageHtml?: Document;
-}
+};
 
-const OffersList = ({
-    mainPageHtml
-}: Props) => {
+const OffersList = ({ mainPageHtml }: Props) => {
     const location = useLocation();
 
     const page = useMemo(
@@ -45,8 +43,11 @@ const OffersList = ({
     });
 
     const html = useMemo(
-        () => mainPageHtml ? mainPageHtml : parseHTMLResponse(data), 
-        [ data, mainPageHtml ]
+        () => mainPageHtml ? mainPageHtml : parseHTMLResponse(data),
+        [
+            data,
+            mainPageHtml,
+        ],
     );
 
     const contentWrapper = useMemo(

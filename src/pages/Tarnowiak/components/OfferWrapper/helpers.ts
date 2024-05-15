@@ -1,4 +1,4 @@
-import { SITE_URL } from "../../commom";
+import { SITE_URL } from "../../common";
 
 const parseBaseInfo = (data: Element[] = []) => {
     return data.map(attribute => {

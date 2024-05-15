@@ -1,5 +1,5 @@
 import { APP_ROUTE } from "app/appConsts";
-import { SITE_URL } from "@/pages/Tarnowiak/commom";
+import { SITE_URL } from "@/pages/Tarnowiak/common";
 import { useMemo } from "react";
 import ListOffer, { TListOffer } from '@/components/ListOffer/ListOffer';
 

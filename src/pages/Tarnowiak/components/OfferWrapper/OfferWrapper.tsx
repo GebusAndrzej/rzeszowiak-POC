@@ -3,7 +3,7 @@ import { APP_ROUTE } from "app/appConsts";
 import {
     QUERY_KEY,
     SITE_URL,
-} from "../../commom";
+} from "../../common";
 import { parseHTMLResponse } from "@/lib/helpers/HTMLhelpers";
 import { processBody } from "./helpers";
 import { useLocation } from "react-router-dom";

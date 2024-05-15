@@ -10,6 +10,7 @@ import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query';
+import Brzozowiak from '@/pages/Brzozowiak/Brzozowiak';
 import LandingPage from '@/pages/LandingPage/LandingPage';
 import Rzeszowiak from '@/pages/Rzeszowiak/Rzeszowiak';
 import Tarnowiak from '@/pages/Tarnowiak/Tarnowiak';
@@ -36,6 +37,11 @@ function App() {
                         <Route
                             element={<Tarnowiak />}
                             path={`${APP_ROUTE.TARNOWIAK}/*`}
+                        />
+
+                        <Route
+                            element={<Brzozowiak />}
+                            path={`${APP_ROUTE.BRZOZOWIAK}/*`}
                         />
                     </Routes>
                 </BrowserRouter>

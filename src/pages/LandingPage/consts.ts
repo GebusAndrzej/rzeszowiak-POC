@@ -6,7 +6,7 @@ enum VOIVODESHIP {
     Warmińsko_Mazurskie = 'Mazurskie',
     Lubuskie = 'Lubuskie',
     Wielkopolskie = 'Wielkopolskie',
-    Kujawsko_Pomorskie = 'Pomorskie',
+    Kujawsko_Pomorskie = 'Kujawsko-pomorskie',
     Mazowieckie = 'Mazowieckie',
     Podlaskie = 'Podlaskie',
     Dolnośląskie = 'Dolnośląskie',
@@ -23,11 +23,16 @@ export const pages = [
     {
         name: 'Rzeszowiak',
         url: APP_ROUTE.RZESZOWIAK,
-        voivodeship: VOIVODESHIP.Podkarpackie
+        voivodeship: VOIVODESHIP.Podkarpackie,
     },
     {
         name: 'Tarnowiak',
         url: APP_ROUTE.TARNOWIAK,
-        voivodeship: VOIVODESHIP.Małopolskie
+        voivodeship: VOIVODESHIP.Małopolskie,
+    },
+    {
+        name: 'Brzozowiak',
+        url: APP_ROUTE.BRZOZOWIAK,
+        voivodeship: VOIVODESHIP.Podkarpackie,
     },
 ] as const;

@@ -1,5 +1,8 @@
 import { AHttpClient } from '@/http/AxiosAbstract';
-import { QUERY_KEY, SITE_URL } from './commom';
+import {
+    QUERY_KEY,
+    SITE_URL,
+} from './common';
 import {
     Route,
     Routes,
@@ -7,18 +10,18 @@ import {
 import { parseHTMLResponse } from '@/lib/helpers/HTMLhelpers';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import DataLoader from '@/components/DataLoader/DataLoader';
+import ListViewSkeleton from '@/components/Skeletons/ListViewSkeleton/ListViewSkeleton';
 import MenuWrapper from './components/Menu/MenuWrapper';
 import OfferWrapper from './components/OfferWrapper/OfferWrapper';
 import OffersList from './components/OffersList/OffersList';
 import SearchWrapper from './components/SearchWrapper/SearchWrapper';
 import SiteWrapper from '@/components/SiteWrapper/SiteWrapper';
-import DataLoader from '@/components/DataLoader/DataLoader';
-import ListViewSkeleton from '@/components/Skeletons/ListViewSkeleton/ListViewSkeleton';
 
 const Tarnowiak = () => {
-    const { 
-        data, 
-        ...queryData 
+    const {
+        data,
+        ...queryData
     } = useQuery({
         queryFn: () => AHttpClient.GetPagePost({ q: SITE_URL }),
         queryKey: [ QUERY_KEY.MAIN_PAGE ],
@@ -34,7 +37,7 @@ const Tarnowiak = () => {
 
     return (
         <SiteWrapper menuElement={<MenuWrapper originalElement={menuElement} />}>
-            <DataLoader 
+            <DataLoader
                 {...queryData}
                 skeleton={<ListViewSkeleton />}
             >
