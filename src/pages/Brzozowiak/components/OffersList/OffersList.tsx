@@ -14,6 +14,8 @@ import { useQuery } from "@tanstack/react-query";
 import DataLoader from "@/components/DataLoader/DataLoader";
 import ListViewSkeleton from "@/components/Skeletons/ListViewSkeleton/ListViewSkeleton";
 import Pagination from "@/components/Pagination/Pagination";
+import ListOfferWrapper from "./components/ListOfferWrapper/ListOfferWrapper";
+import styles from './OffersList.module.css';
 
 type Props = {
     mainPageHtml?: Document;
@@ -119,20 +121,16 @@ const OffersList = ({ mainPageHtml }: Props) => {
                 {...queryData}
                 skeleton={<ListViewSkeleton />}
             >
-                {/* <div dangerouslySetInnerHTML={{ __html: contentWrapper?.outerHTML }} /> */}
+                <div className={styles.offerList}>
+                    {announcementsList.map((announcement, index) => (
+                        <ListOfferWrapper 
+                            key={index} 
+                            offer={announcement}
+                        />
+                    ))}
+                </div>
 
-                {announcementsList.map((announcement, index) => (
-                    <div
-                        dangerouslySetInnerHTML={{ __html: announcement?.outerHTML }}
-                        key={index}
-                    />
-                    // <ListOfferWrapper
-                    //     key={index}
-                    //     offer={announcement}
-                    // />
-                ))}
-
-                {paginationData.current && (
+                {!!paginationData.current && (
                     <Pagination
                         currentPage={paginationData.current}
                         linkGenerator={paginationData.getLink}
