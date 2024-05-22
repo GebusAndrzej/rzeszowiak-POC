@@ -16,6 +16,7 @@ import ListViewSkeleton from "@/components/Skeletons/ListViewSkeleton/ListViewSk
 import MenuWrapper from "./components/MenuWrapper/MenuWrapper";
 import OffersList from "./components/OffersList/OffersList";
 import SiteWrapper from "@/components/SiteWrapper/SiteWrapper";
+import OfferWrapper from "./components/OfferWrapper/OfferWrapper";
 
 const Brzozowiak = () => {
     const { search } = useLocation();
@@ -51,7 +52,7 @@ const Brzozowiak = () => {
                     />
 
                     <Route
-                        element={<div>offer</div>}
+                        element={<OfferWrapper />}
                         path="ogloszenia/:slug"
                     />
 

@@ -11,16 +11,20 @@
     flex-direction: column;
     gap: 16px;
     height: 35dvh;
+    margin-bottom: 52px;
 
     h2 {
         font-size: 2rem;
         text-transform: uppercase;
         font-weight: bolder;
     }
+
+    input {
+        width: min(500px, 100%);
+    }
 }
 
 .pages {
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
